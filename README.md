@@ -2,6 +2,10 @@
 
 This project aims to predict COVID-19 confirmed cases by gene copies of virus and other chemical compounds in wastewater. The data was collected in Suffolk County, New York from beginning of 2020 to 2021.
 
+## Data Description
+
+## 
+
 # Analysis Plan
 
 ## correlation matrix

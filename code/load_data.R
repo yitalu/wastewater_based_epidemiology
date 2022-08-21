@@ -15,7 +15,7 @@ d[, sampling_month := substr(sampling_month, 1, 7)]
   
 
 # log-transform virus concentration
-d$sars_cov_2_virus_log <- log(d$sars_cov_2_virus, base = 10)
+# d$sars_cov_2_virus_log <- log(d$sars_cov_2_virus, base = 10)
 
 
 # standardize with positive values
