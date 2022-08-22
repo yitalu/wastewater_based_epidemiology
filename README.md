@@ -29,6 +29,26 @@ We fit three sets of model:
 2. Distributed Lag (ADL) models
 3. Vector Autoregressive Models and their corresponding Impulse Response Functions.
 
+ADL models regress our dependent variable (Confirmed Case) on its own lags and the lags of other independent variables. Specifically, the models have the following form:
+
+$Y_t = \alpha + \beta_0 \sum_{i=1}^{p} Y_{t-i} + \sum_{k=1}^{p} (\beta_k \sum_{i=1}^{q} X_{k, t-i}) + \epsilon_t$
+
+DL models are just similar to ADL without the lagged dependent variable. The form for a typical model is
+
+$Y_t = \alpha + \sum_{k=0}^{p} (\beta_k \sum_{i=1}^{q} X_{k, t-i}) + \epsilon_t$
+
+(VAR and IRF to be added soon ...)
+
+
+## Stationarity in Time Series
+(To be added I promise ...)
+
+
+## Model Selection
+To decide which variables to include into the above models, we use [Akaike information Criterion (AIC)](https://en.wikipedia.org/wiki/Akaike_information_criterion) as our rule of thumb. Two general rules are applied when selecting the models. First, we use consecutive lags. Second, to avoid overfitting, we maintain at least 10 observations for each predictor included in the models. For other details, please see file [04_select_model.R](./code/04_select_model.R).
+
 
 ## Predictions
+See [prediction_ADL_lag3.pdf](./figures/prediction_ADL_lag3.pdf) and [prediction_DL_lag5.pdf](./figures/prediction_DL_lag5.pdf) for now. 
 
+(Explanation will be added ....)
