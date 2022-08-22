@@ -1,12 +1,25 @@
-# This script does the best subset selection of models
-# Two general rules to consider: 1) 10 observations for each predictor; 2) use consecutive lags
-source(file = "./code/load_data.R")
-# library(leaps)
+# README ------------------------------------------------------------------
+# This script does the best subset selection of models; the selecting criteria is the AIC score.
+# Two general rules are consider: 1) use consecutive lags; 2) 10 observations for each predictor, hence:
 sample_per_predictor <- 10
+
+# According to below selection, the best ADL model is c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3, with the lowest AIC -69.50629.
+
+# The best DL model is c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, with AIC score 5.304252.
+
+# These two models are used in the following analysis.
+
+
+
+# Load Package and Data ---------------------------------------------------
+library("dynlm")
+# library("leaps")
+source(file = "./code/01_load_data.R")
 
 
 
 # Lag Variables -----------------------------------------------------------
+# Choose the lag length here and lag variables accordingly
 lag_length <- 5
 sample_size <- nrow(d) - lag_length
 max_predictors <- floor(sample_size / sample_per_predictor)
@@ -27,9 +40,8 @@ for (i in 1:lag_length) {
 
 
 
-
-# Lagged Data Frame -------------------------------------------------------
-# .  Lag 1 ----------------------------------------------------------------
+# Make Data Frame with Lagged Variables -----------------------------------
+# . Lag Length 1 ---------------------------------------------------------
 d_lag1 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -41,7 +53,7 @@ d_lag1 <- data.frame(
   dh_lag1 = dh_lag1
 )
 
-# .  Lag 2 ----------------------------------------------------------------
+# . Lag Length 2 ---------------------------------------------------------
 d_lag2 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -60,7 +72,7 @@ d_lag2 <- data.frame(
   dh_lag2 = dh_lag2
 )
 
-# .  Lag 3 ----------------------------------------------------------------
+# . Lag Length 3 ---------------------------------------------------------
 d_lag3 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -86,7 +98,7 @@ d_lag3 <- data.frame(
   dh_lag3 = dh_lag3
 )
 
-# .  Lag 4 ----------------------------------------------------------------
+# . Lag Length 4 ---------------------------------------------------------
 d_lag4 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -119,7 +131,7 @@ d_lag4 <- data.frame(
   dh_lag4 = dh_lag4
 )
 
-# .  Lag 5 ----------------------------------------------------------------
+# . Lag Length 5 ---------------------------------------------------------
 d_lag5 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -159,7 +171,7 @@ d_lag5 <- data.frame(
   dh_lag5 = dh_lag5
 )
 
-# .  Lag 6 ----------------------------------------------------------------
+# . Lag Length 6 ---------------------------------------------------------
 d_lag6 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -206,7 +218,7 @@ d_lag6 <- data.frame(
   dh_lag6 = dh_lag6
 )
 
-# .  Lag 7 ----------------------------------------------------------------
+# . Lag Length 7 ---------------------------------------------------------
 d_lag7 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -260,7 +272,7 @@ d_lag7 <- data.frame(
   dh_lag7 = dh_lag7
 )
 
-# .  Lag 8 ----------------------------------------------------------------
+# . Lag Length 8 ---------------------------------------------------------
 d_lag8 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -321,7 +333,7 @@ d_lag8 <- data.frame(
   dh_lag8 = dh_lag8
 )
 
-# .  Lag 9 ----------------------------------------------------------------
+# . Lag Length 9 ---------------------------------------------------------
 d_lag9 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -389,7 +401,7 @@ d_lag9 <- data.frame(
   dh_lag9 = dh_lag9
 )
 
-# .  Lag 10 ---------------------------------------------------------------
+# . Lag Length 10 --------------------------------------------------------
 d_lag10 <- data.frame(
   c = c[start : end], 
   c_lag1 = c_lag1, 
@@ -466,7 +478,8 @@ d_lag10 <- data.frame(
 
 
 
-# Lag Length: 1 -----------------------------------------------------------
+# Get AIC Scores ----------------------------------------------------------
+# . Lag Length 1 ---------------------------------------------------------
 # max_predictor_sets: 11
 fit_subsets_lag1 <- regsubsets(c ~ c_lag1 + v_lag1 + a_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1, nbest = 1, nvmax = 11)
 
@@ -498,7 +511,7 @@ grid(nx = num_parameters + 2)
 
 
 
-# Lag Length: 2 -----------------------------------------------------------
+# . Lag Length 2 ---------------------------------------------------------
 # max_predictor_sets: 5
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2)) # -43.3828
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2, data = d_lag2))
@@ -670,9 +683,7 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2, data = d_lag2))
 
 
 
-
-
-# Lag Length: 3 -----------------------------------------------------------
+# . Lag Length 3 ---------------------------------------------------------
 # max_predictor_sets: 3
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3)) # -69.50629 (GLOBAL MIN with c)
@@ -762,7 +773,8 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3, data = d_lag3))
 AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
 
 
-# Lag Length: 4 -----------------------------------------------------------
+
+# . Lag Length 4 ---------------------------------------------------------
 # max_predictor_sets: 2
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + v_lag1 + v_lag2 + v_lag3 + v_lag4, data = d_lag4)) # -35.88518
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + a_lag1 + a_lag2 + a_lag3 + a_lag4, data = d_lag4))
@@ -803,7 +815,7 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4, data = d_lag4))
 
 
 
-# Lag Length: 5 -----------------------------------------------------------
+# . Lag Length 5 ---------------------------------------------------------
 # max_predictor_sets: 2
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5, data = d_lag5)) # -39.44621
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5, data = d_lag5))
@@ -849,7 +861,8 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5, data = d_lag5))
 AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, data = d_lag5))
 
 
-# Lag Length: 6 -----------------------------------------------------------
+
+# . Lag Length 6 ---------------------------------------------------------
 # max_predictor_sets: 1
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6, data = d_lag6))
 
@@ -867,7 +880,7 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6, data = 
 
 
 
-# Lag Length: 7 -----------------------------------------------------------
+# . Lag Length 7 ---------------------------------------------------------
 # max_predictor_sets: 1
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7, data = d_lag7)) # 4.786252
 
@@ -883,7 +896,9 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5 + h_lag6 + h_lag7, data
 
 AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag7, data = d_lag7))
 
-# Lag Length: 8 -----------------------------------------------------------
+
+
+# . Lag Length 8 ---------------------------------------------------------
 # max_predictor_sets: 1
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8, data = d_lag8)) # 7.514695
 
@@ -899,7 +914,9 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5 + h_lag6 + h_lag7 + h_l
 
 AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag7 + dh_lag8, data = d_lag8))
 
-# Lag Length: 9 -----------------------------------------------------------
+
+
+# . Lag Length 9 ---------------------------------------------------------
 # max_predictor_sets: 1
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8 + c_lag9, data = d_lag9)) # 7.207297
 
@@ -915,7 +932,9 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5 + h_lag6 + h_lag7 + h_l
 
 AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag7 + dh_lag8 + dh_lag9, data = d_lag9))
 
-# Lag Length: 10 -----------------------------------------------------------
+
+
+# . Lag Length 10 --------------------------------------------------------
 # max_predictor_sets: 1
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8 + c_lag9 + c_lag10, data = d_lag10)) # 5.513185
 
@@ -933,10 +952,7 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag
 
 
 
-
-
-
-# Fit Models --------------------------------------------------------------
+# Subset Regression (Unused) ----------------------------------------------
 # .  Lag 1 ----------------------------------------------------------------
 fit_subsets_lag1 <- regsubsets(c ~ c_lag1 + v_lag1 + a_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1, nbest = 1, nvmax = 11)
 
@@ -954,6 +970,7 @@ grid(nx = num_parameters + 2)
 
 
 AIC(dynlm(c ~ c_lag1 + v_lag1 + a_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1, data = d_lag3))
+
 
 
 # .  Lag 2 ----------------------------------------------------------------
@@ -984,33 +1001,29 @@ grid(nx = num_parameters + 2)
 # min value of Cp: 6
 # Model: c ~ c_lag1 + c_lag2 + c_lag3 +  v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + n_lag1 + n_lag2 + n_lag3 + p_lag1 + p_lag2 + p_lag3 + h_lag1 + h_lag2 + h_lag3 + dh_lag1 + dh_lag3
 
+
+
 # .  Lag 4 ----------------------------------------------------------------
 
+
+
 # .  Lag 5 ----------------------------------------------------------------
+fit_subsets_5 <- regsubsets(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + n_lag1 + n_lag2 + n_lag3 + n_lag4 + n_lag5 + p_lag1 + p_lag2 + p_lag3 + p_lag4 + p_lag5 + h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, data = d_lag5, nvmax = 11)
+
+
 
 # .  Lag 6 ----------------------------------------------------------------
 
+
+
 # .  Lag 7 ----------------------------------------------------------------
-
-fit_subsets_3 <- regsubsets(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + n_lag1 + n_lag2 + n_lag3 + p_lag1 + p_lag2 + p_lag3 + h_lag1 + h_lag2 + h_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3, nbest = 1, nvmax = 11)
-
-fit_summary <- summary(fit_subsets_3)
-
-AIC(dynlm(c ~ c_lag1 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + a_lag2 + a_lag3 + n_lag1 + n_lag2 + p_lag1 + dh_lag1 + dh_lag3, data = d_lag3))
-
-
-fit_subsets_5 <- regsubsets(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + n_lag1 + n_lag2 + n_lag3 + n_lag4 + n_lag5 + p_lag1 + p_lag2 + p_lag3 + p_lag4 + p_lag5 + h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, data = d_lag5, nvmax = 11)
-
 fit_subsets_7 <- regsubsets(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + a_lag6 + a_lag7 + n_lag1 + n_lag2 + n_lag3 + n_lag4 + n_lag5 + n_lag6 + n_lag7 + p_lag1 + p_lag2 + p_lag3 + p_lag4 + p_lag5 + p_lag6 + p_lag7 + h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5 + h_lag6 + h_lag7 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag7, data = d_lag7, nvmax = 11)
 
-
-fit_summary <- summary(fit_subsets_3)
+fit_summary <- summary(fit_subsets_7)
 names(fit_summary)
-
-plot(fit_subsets, scale = "adjr2")
-plot(fit_subsets_7, scale = "bic")
 plot(fit_summary$bic)
+
+plot(fit_subsets_7, scale = "adjr2")
+plot(fit_subsets_7, scale = "bic")
 plot(fit_subsets_7, scale = "Cp") # proportional to AIC
 grid(nx = num_parameters + 1)
-
-

@@ -1,4 +1,10 @@
-source("./code/load_data.R")
+# This script plots the density distributions and the time series of interested variables.
+
+
+
+# Load Data ---------------------------------------------------------------
+source("./code/01_load_data.R")
+
 
 
 # Density Distributions ---------------------------------------------------
@@ -12,36 +18,41 @@ plot(density(dh))
 
 
 
-
 # Distributions over Time -------------------------------------------------
-plot(c ~ d$sampling_date, type = "l", ylab = "Confirmed Cases", xlab = "Time")
+# Confirmed Cases
+plot(c ~ d$sampling_date, type = "l", ylab = "Confirmed Cases", xlab = "Time", main = "COVID-19 Confirmed Cases: Mid-2020 to Early 2022")
 points(c ~ d$sampling_date, pch = 20)
 grid()
 
-plot(v ~ d$sampling_date, type = "l", ylab = "Virus", xlab = "Time")
+# Virus
+plot(v ~ d$sampling_date, type = "l", ylab = "Virus Gene Copies (Standardized)", xlab = "Time", main = "Virus Gene Copies (Mid-2020 to Early 2022)")
 points(v ~ d$sampling_date, pch = 20)
 grid()
 
-plot(a ~ d$sampling_date, type = "l", ylab = "Acetaminophen", xlab = "Time")
+# Acetaminophen
+plot(a ~ d$sampling_date, type = "l", ylab = "Acetaminophen (Standardized)", xlab = "Time", main = "Acetaminophen (Mid-2020 to Early 2022)")
 points(a ~ d$sampling_date, pch = 20)
 grid()
 
-plot(n ~ d$sampling_date, type = "l", ylab = "Nicotine", xlab = "Time")
+# Nicotine
+plot(n ~ d$sampling_date, type = "l", ylab = "Nicotine (Standardized)", xlab = "Time", main = "Nicotine (Mid-2020 to Early 2022)")
 points(n ~ d$sampling_date, pch = 20)
 grid()
 
-plot(p ~ d$sampling_date, type = "l", ylab = "Paraxanthine", xlab = "Time")
+# Paraxanthine
+plot(p ~ d$sampling_date, type = "l", ylab = "Paraxanthine (Standardized)", xlab = "Time", main = "Paraxanthine (Mid-2020 to Early 2022)")
 points(p ~ d$sampling_date, pch = 20)
 grid()
 
-plot(h ~ d$sampling_date, type = "l", ylab = "Hydroxychloroquine", xlab = "Time")
+# Hydroxychloroquine
+plot(h ~ d$sampling_date, type = "l", ylab = "Hydroxychloroquine (Standardized)", xlab = "Time", main = "Hydroxychloroquine (Mid-2020 to Early 2022)")
 points(h ~ d$sampling_date, pch = 20)
 grid()
 
-plot(dh ~ d$sampling_date, type = "l", ylab = "Desethyl Hydroxychloroquine", xlab = "Time")
+# Desethyl Hydroxychloroquine
+plot(dh ~ d$sampling_date, type = "l", ylab = "Desethyl Hydroxychloroquine (Standardized)", xlab = "Time", main = "Desethyl Hydroxychloroquine (Mid-2020 to Early 2022)")
 points(dh ~ d$sampling_date, pch = 20)
 grid()
-
 
 
 
@@ -56,18 +67,21 @@ plot.ts(dh, ylab = "Desethyl Hydroxychloroquine")
 
 
 
-
 # Overlap Time Series: Standardized ---------------------------------------
 # pdf("./figures/trend_standardized.pdf", width = 9, height = 6)
 plot(v ~ d$sampling_date, type = "l", xlab = "Sampling Date", ylab = "Standardized Values", main = "Wastewater-Based Epidemiology")
 # points(d$sars_cov_2_virus * 1e-3 ~ d$sampling_date, pch = 20)
 lines(c ~ d$sampling_date, type = "l", col = "blue")
+
 lines(a ~ d$sampling_date, col = "#ff7b00f5")
+lines(n ~ d$sampling_date, col = "#ff7b00f5")
+lines(p ~ d$sampling_date, col = "#ff7b00f5")
+lines(h ~ d$sampling_date, col = "#ff7b00f5")
+lines(dh ~ d$sampling_date, col = "#ff7b00f5")
 
 grid(col = "black", lty = "dotted")
 legend("topleft", legend = c("SARS-CoV-2 Virus", "Confirmed Cases", "Acetaminophen"), col = c("black", "blue", "orange"), lty=1)
 # dev.off()
-
 
 
 
