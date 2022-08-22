@@ -21,6 +21,9 @@ lag_length <- 3
 fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(v, 1:lag_length) + L(n, 1:lag_length))
 
 summary(fit_ADL)
+confint(fit_ADL)
+par(mfrow=c(2,2))
+plot(fit_ADL)
 AIC(fit_ADL)
 BIC(fit_ADL)
 
@@ -30,6 +33,13 @@ BIC(fit_ADL)
 lag_length <- 5
 fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(dh, 1:lag_length))
 
+lag_length <- 3
+fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(a, 1:lag_length) + L(dh, 1:lag_length))
+
+
 summary(fit_DL)
+confint(fit_DL)
+par(mfrow=c(2,2))
+plot(fit_DL)
 AIC(fit_DL)
 BIC(fit_DL)
