@@ -1,4 +1,5 @@
-library("rethinking")
+# This script creates predictive plots based on the ADL and DL model.
+
 
 
 # Predict by ADL Model ----------------------------------------------------

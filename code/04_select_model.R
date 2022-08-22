@@ -5,23 +5,25 @@ sample_per_predictor <- 10
 
 # According to below selection, the best ADL model is c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3, with the lowest AIC -69.50629.
 
-# The best DL model is c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, with AIC score 5.304252. The second best is c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4, with AIC 11.11243.
+# The best DL model is c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, with AIC score 5.304252. However, this model suffers from serial autocorrelation. Alternative models are listed below, by the ascending order of AIC:
 
-# AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7, data = d_lag7)) # 5.611666
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 (AIC 5.611666)
 
-# AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8, data = d_lag8)) # 8.125897
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 (AIC 8.125897)
 
-# AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9, data = d_lag9)) # 10.26664
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9 + v_lag10 (AIC 10.2101)
 
-# AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9 + v_lag10, data = d_lag10)) # 10.2101
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9 (AIC 10.26664)
 
-# AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6, data = d_lag6)) # 11.53252
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 (AIC 11.11243)
 
-# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4, data = d_lag4)) # 27.40498
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 (AIC 11.53252)
 
-# AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5, data = d_lag5)) # 20.76768
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 (AIC 20.76768)
 
-# Third, c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + dh_lag1 + dh_lag2 + dh_lag3, with AIC 62.53413. However, both models didn't past the serial correlation tests.
+# c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 (AIC 27.40498)
+
+# c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + dh_lag1 + dh_lag2 + dh_lag3 (AIC 62.53413)
 
 
 
