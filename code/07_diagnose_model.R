@@ -41,8 +41,17 @@ dens(fit_DL$residual)
 
 
 
+# Homoscedasticity --------------------------------------------------------
+plot(fit_ADL$residuals ~ fit_ADL$fitted.values)
+plot(fit_DL$residuals ~ fit_DL$fitted.values)
 
+ncvTest(fit_ADL)
+ncvTest(fit_DL)
 
+spreadLevelPlot(fit_ADL)
+spreadLevelPlot(fit_DL)
+
+# NOTE: Both models suffer from heteroscedasticity. For the purpose of prediction, this should be fine.
 
 
 
