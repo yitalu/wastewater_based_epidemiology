@@ -1,7 +1,9 @@
 # Wastewater Based Epidemiology
 
+[LAST UPDATED: 08.22.2022]
+
 ## Goals
-This project aims to predict COVID-19 confirmed cases by previous confirmed cases, concentration of virus gene copies and other chemicals in wastewater. The data was collected in Suffolk County, NY, USA from mid 2020 to begining of 2021.
+This project aims to predict COVID-19 confirmed cases by previous confirmed cases, concentration of virus gene copies and other chemicals in wastewater. The data was collected in Suffolk County, NY, USA from mid 2020 to the begining of 2021.
 
 
 ## Data Preprocessing
