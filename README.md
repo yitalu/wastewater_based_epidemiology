@@ -33,11 +33,11 @@ We fit three sets of model:
 
 ADL models regress our dependent variable (Confirmed Case) on its own lags and the lags of other independent variables. Specifically, the models have the following form:
 
-$Y_t = \alpha + \beta_0 \sum_{i=1}^{p} Y_{t-i} + \sum_{k=1}^{p} (\beta_k \sum_{i=1}^{q} X_{k, t-i}) + \epsilon_t$
+$Y_t = \alpha_{0} + \sum_{i=1}^{p} \alpha_i  Y_{t-i} + \sum_{k=1}^{n} (\sum_{j=1}^{q} \beta_{k, j} X_{k, t-j}) + \epsilon_t$
 
 DL models are just similar to ADL without the lagged dependent variable. The form for a typical model is
 
-$Y_t = \alpha + \sum_{k=0}^{p} (\beta_k \sum_{i=1}^{q} X_{k, t-i}) + \epsilon_t$
+$Y_t = \alpha_{0} + \sum_{k=1}^{n} (\sum_{j=1}^{q} \beta_{k, j} X_{k, t-j}) + \epsilon_t$
 
 (VAR and IRF to be added soon ...)
 

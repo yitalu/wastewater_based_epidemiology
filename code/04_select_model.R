@@ -32,7 +32,7 @@ sample_per_predictor <- 10
 
 
 # Load Package and Data ---------------------------------------------------
-library("dynlm")
+# library("dynlm")
 # library("leaps")
 source(file = "./code/01_load_data.R")
 
@@ -40,7 +40,7 @@ source(file = "./code/01_load_data.R")
 
 # Lag Variables -----------------------------------------------------------
 # Choose the lag length here and lag variables accordingly
-lag_length <- 5
+lag_length <- 1
 sample_size <- nrow(d) - lag_length
 max_predictors <- floor(sample_size / sample_per_predictor)
 max_predictor_sets <- floor(max_predictors / lag_length)
@@ -502,6 +502,8 @@ d_lag10 <- data.frame(
 # . Lag Length 1 ---------------------------------------------------------
 # max_predictor_sets: 11
 fit_subsets_lag1 <- regsubsets(c ~ c_lag1 + v_lag1 + a_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1, nbest = 1, nvmax = 11)
+
+fit_subsets_lag1 <- regsubsets(c ~ v_lag1 + a_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1, nbest = 1, nvmax = 11)
 
 fit_summary <- summary(fit_subsets_lag1)
 names(fit_summary)

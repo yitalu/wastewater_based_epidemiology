@@ -19,6 +19,7 @@ dh <- ts(dh)
 # Fit Autoregressive Distributed Lag Model --------------------------------
 lag_length <- 3
 fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(v, 1:lag_length) + L(n, 1:lag_length))
+# fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(v, 1:lag_length)) # this one is good for log-transformed variables
 
 summary(fit_ADL)
 confint(fit_ADL)
@@ -42,6 +43,7 @@ fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(dh, 1:lag_length))
 
 lag_length <- 3
 fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(a, 1:lag_length) + L(dh, 1:lag_length))
+fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(n, 1:lag_length) + L(dh, 1:lag_length))
 
 
 summary(fit_DL)

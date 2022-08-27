@@ -3,7 +3,7 @@
 
 
 # Predict by ADL Model ----------------------------------------------------
-lag_length <- 3
+lag_length <- 1
 pred <- predict(fit_ADL, newdata = d[1:(111-lag_length)], interval = "confidence")
 
 # pdf("./figures/prediction_ADL_lag3.pdf", width = 9, height = 6)

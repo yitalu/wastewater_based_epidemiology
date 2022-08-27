@@ -42,7 +42,7 @@ dens(fit_DL$residual)
 
 
 # Homoscedasticity --------------------------------------------------------
-plot(fit_ADL$residuals ~ fit_ADL$fitted.values)
+plot((fit_ADL$residuals)^1 ~ fit_ADL$fitted.values)
 plot(fit_DL$residuals ~ fit_DL$fitted.values)
 
 ncvTest(fit_ADL)
