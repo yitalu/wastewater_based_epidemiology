@@ -18,8 +18,11 @@ dh <- ts(dh)
 
 # Fit Autoregressive Distributed Lag Model --------------------------------
 lag_length <- 3
-fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(v, 1:lag_length) + L(n, 1:lag_length))
-# fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(v, 1:lag_length)) # this one is good for log-transformed variables
+fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(v, 1:lag_length) + L(n, 1:lag_length)) # best before Box-Cox transformation
+
+# fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(a, 1:lag_length) + L(n, 1:lag_length) + L(p, 1:lag_length) + L(dh, 1:lag_length)) # this one is good for differenced (dependent) variables
+
+fit_ADL <- dynlm(c ~ L(c, 1:lag_length) + L(v, 1:lag_length) + L(dh, 1:lag_length)) # best after Box-Cox transformation
 
 summary(fit_ADL)
 confint(fit_ADL)
@@ -33,7 +36,9 @@ BIC(fit_ADL)
 
 # Fit Distributed Lag Model -----------------------------------------------
 lag_length <- 5
-fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(dh, 1:lag_length))
+fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(dh, 1:lag_length)) # best at level
+fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(n, 1:lag_length)) # best for differenced case; non-Box-Cox transformed
+fit_DL <- dynlm(c ~ L(v, 1:lag_length) + L(dh, 1:lag_length)) # best after Box-Cox transformation
 
 lag_length <- 6
 fit_DL <- dynlm(c ~ L(v, 1:lag_length))
@@ -50,6 +55,7 @@ summary(fit_DL)
 confint(fit_DL)
 par(mfrow=c(2,2))
 plot(fit_DL)
+
 dev.off()
 AIC(fit_DL)
 BIC(fit_DL)

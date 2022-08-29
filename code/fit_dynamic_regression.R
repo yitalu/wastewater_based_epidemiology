@@ -1,0 +1,5 @@
+source(file = "./code/load_data.R")
+library("dynlm")
+library("aTSA")
+library("vars")
+library("car")

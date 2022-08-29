@@ -367,7 +367,7 @@ pre code {
 
 <div id="wastewater-based-epidemiology" class="section level1">
 <h1>Wastewater Based Epidemiology</h1>
-<p><strong>[LAST UPDATED: 08.22.2022]</strong></p>
+<p><strong>[LAST UPDATED: 08.27.2022]</strong></p>
 <div id="goals" class="section level2">
 <h2>Goals</h2>
 <p>This project aims to predict COVID-19 confirmed cases by previous
@@ -415,13 +415,13 @@ Response Functions.</li>
 <p>ADL models regress our dependent variable (Confirmed Case) on its own
 lags and the lags of other independent variables. Specifically, the
 models have the following form:</p>
-<p><span class="math inline">\(Y_t = \alpha + \beta_0 \sum_{i=1}^{p}
-Y_{t-i} + \sum_{k=1}^{p} (\beta_k \sum_{i=1}^{q} X_{k, t-i}) +
-\epsilon_t\)</span></p>
+<p><span class="math inline">\(Y_t = \alpha_{0} + \sum_{i=1}^{p}
+\alpha_i Y_{t-i} + \sum_{k=1}^{n} (\sum_{j=1}^{q} \beta_{k, j} X_{k,
+t-j}) + \epsilon_t\)</span></p>
 <p>DL models are just similar to ADL without the lagged dependent
 variable. The form for a typical model is</p>
-<p><span class="math inline">\(Y_t = \alpha + \sum_{k=0}^{p} (\beta_k
-\sum_{i=1}^{q} X_{k, t-i}) + \epsilon_t\)</span></p>
+<p><span class="math inline">\(Y_t = \alpha_{0} + \sum_{k=1}^{n}
+(\sum_{j=1}^{q} \beta_{k, j} X_{k, t-j}) + \epsilon_t\)</span></p>
 <p>(VAR and IRF to be added soon …)</p>
 </div>
 <div id="stationarity-in-time-series" class="section level2">

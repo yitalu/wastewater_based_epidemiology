@@ -8,12 +8,12 @@ par(mfrow=c(2,2))
 plot(fit_ADL)
 plot(fit_DL)
 
-fit_ADL$fitted.values # serial correlation
-fit_DL$fitted.values # serial correlation
+fit_ADL$fitted.values # fitted values
+fit_DL$fitted.values # fitted values
 
 
 
-# Tests for Residual Serial Correlation -----------------------------------
+# Serial Correlation of Residuals -----------------------------------------
 # https://www.codingprof.com/3-easy-ways-to-test-for-autocorrelation-in-r-examples/
 
 # ACF plots
@@ -36,22 +36,63 @@ bgtest(fit_DL, order = 1) # autocorrelated
 
 
 # Normality ---------------------------------------------------------------
-dens(fit_ADL$residual)
-dens(fit_DL$residual)
+# Distribution of residuals
+plot(density(fit_ADL$residuals))
+plot(density(fit_DL$residuals))
+
+# Plot residuals over time
+plot.ts(fit_ADL$residuals)
+plot.ts(fit_DL$residuals)
+
+
+# Residual plots against predictors (ADL model)
+plot(as.vector(fit_ADL$residuals) ~ c[1:length(fit_ADL$residuals)], pch = 20)
+abline(a = 0, b = 0)
+
+plot(as.vector(fit_ADL$residuals) ~ v[1:length(fit_ADL$residuals)], pch = 20)
+abline(a = 0, b = 0)
+
+plot(as.vector(fit_ADL$residuals) ~ n[1:length(fit_ADL$residuals)], pch = 20)
+abline(a = 0, b = 0)
+
+
+# Residual plots against predictors (DL model)
+plot(as.vector(fit_DL$residuals) ~ c[1:length(fit_DL$residuals)], pch = 20)
+abline(a = 0, b = 0)
+
+plot(as.vector(fit_DL$residuals) ~ v[1:length(fit_DL$residuals)], pch = 20)
+abline(a = 0, b = 0)
+
+plot(as.vector(fit_DL$residuals) ~ dh[1:length(fit_DL$residuals)], pch = 20)
+abline(a = 0, b = 0)
+
+plot(as.vector(fit_DL$residuals) ~ n[1:length(fit_DL$residuals)], pch = 20)
+abline(a = 0, b = 0)
+
+# NOTE: Residuals have means 0. The forecasts are unbiased.
 
 
 
 # Homoscedasticity --------------------------------------------------------
-plot((fit_ADL$residuals)^1 ~ fit_ADL$fitted.values)
-plot(fit_DL$residuals ~ fit_DL$fitted.values)
+# Residual plots against fitted values (ADL model)
+plot(as.vector(fit_ADL$residuals) ~ as.vector(fit_ADL$fitted.values), pch = 20)
+abline(a = 0, b = 0)
 
+
+# Residual plots against fitted values (DL model)
+plot(as.vector(fit_DL$residuals) ~ as.vector(fit_DL$fitted.values), pch = 20)
+abline(a = 0, b = 0)
+
+
+# Breusch-Pagan test (null hypothesis: homoskedasticity)
+library("car")
 ncvTest(fit_ADL)
 ncvTest(fit_DL)
 
 spreadLevelPlot(fit_ADL)
 spreadLevelPlot(fit_DL)
 
-# NOTE: Both models suffer from heteroscedasticity. For the purpose of prediction, this should be fine.
+# NOTE: Both models suffer from heteroscedasticity. This could cause varying prediction intervals. A transformation of the forecast variable such as a logarithm or square root may be required. Could do Box-Cox transformation as well.
 
 
 

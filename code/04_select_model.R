@@ -40,7 +40,7 @@ source(file = "./code/01_load_data.R")
 
 # Lag Variables -----------------------------------------------------------
 # Choose the lag length here and lag variables accordingly
-lag_length <- 1
+lag_length <- 10
 sample_size <- nrow(d) - lag_length
 max_predictors <- floor(sample_size / sample_per_predictor)
 max_predictor_sets <- floor(max_predictors / lag_length)
@@ -506,22 +506,27 @@ fit_subsets_lag1 <- regsubsets(c ~ c_lag1 + v_lag1 + a_lag1 + n_lag1 + p_lag1 + 
 fit_subsets_lag1 <- regsubsets(c ~ v_lag1 + a_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1, nbest = 1, nvmax = 11)
 
 fit_summary <- summary(fit_subsets_lag1)
-names(fit_summary)
+# names(fit_summary)
 plot(fit_summary$cp)
 
 AIC(dynlm(c ~ c_lag1, data = d_lag1))
 
-AIC(dynlm(c ~ c_lag1 + v_lag1, data = d_lag1))
+AIC(dynlm(c ~ c_lag1 + v_lag1, data = d_lag1)) # 61.03196
 
 AIC(dynlm(c ~ c_lag1 + v_lag1 + n_lag1, data = d_lag1))
 
 AIC(dynlm(c ~ c_lag1 + v_lag1 + n_lag1 + p_lag1, data = d_lag1))
 
-AIC(dynlm(c ~ c_lag1 + v_lag1 + n_lag1 + p_lag1 + dh_lag1, data = d_lag1)) # -18.54858
+AIC(dynlm(c ~ c_lag1 + v_lag1 + n_lag1 + p_lag1 + dh_lag1, data = d_lag1))
 
 AIC(dynlm(c ~ c_lag1 + v_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1))
 
 AIC(dynlm(c ~ c_lag1 + v_lag1 + a_lag1 + n_lag1 + p_lag1 + h_lag1 + dh_lag1, data = d_lag1))
+
+AIC(dynlm(c ~ c_lag1 + a_lag1 + n_lag1 + p_lag1 + dh_lag1, data = d_lag1))
+
+AIC(dynlm(c ~ v_lag1 + a_lag1, data = d_lag1))
+AIC(dynlm(c ~ v_lag1, data = d_lag1)) # 67.55276
 
 plot(fit_subsets_lag1, scale = "adjr2")
 plot(fit_subsets_lag1, scale = "bic")
@@ -535,18 +540,18 @@ grid(nx = num_parameters + 2)
 
 # . Lag Length 2 ---------------------------------------------------------
 # max_predictor_sets: 5
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2)) # -43.3828
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2)) # 58.00278
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2, data = d_lag2))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2, data = d_lag2)) # -43.52235
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2, data = d_lag2))
 
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2)) # -43.98809
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2)) # 130.1069
+AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + h_lag1 + h_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
@@ -564,16 +569,16 @@ AIC(dynlm(c ~ a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + h_lag1 + h_l
 
 
 # predictor_sets: 4
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2, data = d_lag2))
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2, data = d_lag2)) # 56.97629
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + p_lag1 + p_lag2, data = d_lag2))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2)) # -46.54003
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2))
 
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2, data = d_lag2))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2, data = d_lag2)) # 130.8391
+AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2, data = d_lag2))
 
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2, data = d_lag2))
@@ -584,9 +589,9 @@ AIC(dynlm(c ~ v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2 + h_lag1 + h_l
 
 
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + dh_lag1 + dh_lag2, data = d_lag2)) # -43.08046
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + dh_lag1 + dh_lag2, data = d_lag2)) # 128.2237
+AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2 + p_lag1 + p_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
@@ -617,7 +622,7 @@ AIC(dynlm(c ~ n_lag1 + n_lag2 + p_lag1 + p_lag2 + h_lag1 + h_lag2 + dh_lag1 + dh
 
 # predictor_sets: 3
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + a_lag1 + a_lag2, data = d_lag2))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2, data = d_lag2)) # -46.42368
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + n_lag1 + n_lag2, data = d_lag2)) # 57.04379
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + p_lag1 + p_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
@@ -639,7 +644,7 @@ AIC(dynlm(c ~ c_lag1 + c_lag2 + h_lag1 + h_lag2 + dh_lag1 + dh_lag2, data = d_la
 AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + n_lag1 + n_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + p_lag1 + p_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + h_lag1 + h_lag2, data = d_lag2))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + dh_lag1 + dh_lag2, data = d_lag2)) # 127.2301
+AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 
 AIC(dynlm(c ~ v_lag1 + v_lag2 + n_lag1 + n_lag2 + p_lag1 + p_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + n_lag1 + n_lag2 + h_lag1 + h_lag2, data = d_lag2))
@@ -666,7 +671,7 @@ AIC(dynlm(c ~ p_lag1 + p_lag2 + h_lag1 + h_lag2 + dh_lag1 + dh_lag2, data = d_la
 
 
 # predictor_sets: 2
-AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2, data = d_lag2)) # -11.55133
+AIC(dynlm(c ~ c_lag1 + c_lag2 + v_lag1 + v_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + a_lag1 + a_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + n_lag1 + n_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + p_lag1 + p_lag2, data = d_lag2))
@@ -674,7 +679,7 @@ AIC(dynlm(c ~ c_lag1 + c_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 
 AIC(dynlm(c ~ v_lag1 + v_lag2 + a_lag1 + a_lag2, data = d_lag2))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + n_lag1 + n_lag2, data = d_lag2)) # 128.381
+AIC(dynlm(c ~ v_lag1 + v_lag2 + n_lag1 + n_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + p_lag1 + p_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + h_lag1 + h_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
@@ -695,7 +700,7 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + dh_lag1 + dh_lag2, data = d_lag2))
 
 
 # predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2, data = d_lag2)) # 16.60088
+AIC(dynlm(c ~ c_lag1 + c_lag2, data = d_lag2))
 AIC(dynlm(c ~ v_lag1 + v_lag2, data = d_lag2))
 AIC(dynlm(c ~ a_lag1 + a_lag2, data = d_lag2))
 AIC(dynlm(c ~ n_lag1 + n_lag2, data = d_lag2))
@@ -708,10 +713,10 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2, data = d_lag2))
 # . Lag Length 3 ---------------------------------------------------------
 # max_predictor_sets: 3
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3, data = d_lag3))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3)) # -69.50629 (GLOBAL MIN with c)
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + h_lag1 + h_lag2 + h_lag3, data = d_lag3))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3)) # -47.28687
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3)) # 55.53223 MIN for ADL
 
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + a_lag1 + a_lag2 + a_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + a_lag1 + a_lag2 + a_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
@@ -730,7 +735,7 @@ AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + h_lag1 + h_lag2 + h_lag3 + dh_lag1 + dh
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + h_lag1 + h_lag2 + h_lag3, data = d_lag3))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3)) # 62.53413
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
 
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3 + h_lag1 + h_lag2 + h_lag3, data = d_lag3))
@@ -758,9 +763,9 @@ AIC(dynlm(c ~ p_lag1 + p_lag2 + p_lag3 + h_lag1 + h_lag2 + h_lag3 + dh_lag1 + dh
 
 
 # predictor_sets: 2
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3, data = d_lag3)) # -40.9948
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + v_lag1 + v_lag2 + v_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + a_lag1 + a_lag2 + a_lag3, data = d_lag3))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3)) # -2.7753
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + h_lag1 + h_lag2 + h_lag3, data = d_lag3))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
@@ -769,7 +774,7 @@ AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + a_lag1 + a_lag2 + a_lag3, data = d_lag3
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + h_lag1 + h_lag2 + h_lag3, data = d_lag3))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3)) # 60.573
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + n_lag1 + n_lag2 + n_lag3, data = d_lag3))
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
@@ -778,7 +783,7 @@ AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_l
 
 AIC(dynlm(c ~ n_lag1 + n_lag2 + n_lag3 + p_lag1 + p_lag2 + p_lag3, data = d_lag3))
 AIC(dynlm(c ~ n_lag1 + n_lag2 + n_lag3 + h_lag1 + h_lag2 + h_lag3, data = d_lag3))
-AIC(dynlm(c ~ n_lag1 + n_lag2 + n_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
+AIC(dynlm(c ~ n_lag1 + n_lag2 + n_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3)) # 67.4798
 
 AIC(dynlm(c ~ p_lag1 + p_lag2 + p_lag3 + h_lag1 + h_lag2 + h_lag3, data = d_lag3))
 AIC(dynlm(c ~ p_lag1 + p_lag2 + p_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
@@ -786,21 +791,21 @@ AIC(dynlm(c ~ p_lag1 + p_lag2 + p_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_l
 AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3 + dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
 
 # predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3, data = d_lag3)) # 19.48214
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3, data = d_lag3)) # 69.08195
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3, data = d_lag3))
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3, data = d_lag3))
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3, data = d_lag3))
 AIC(dynlm(c ~ n_lag1 + n_lag2 + n_lag3, data = d_lag3))
 AIC(dynlm(c ~ p_lag1 + p_lag2 + p_lag3, data = d_lag3))
 AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3, data = d_lag3))
-AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3))
+AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3, data = d_lag3)) # 65.86415
 
 
 
 # . Lag Length 4 ---------------------------------------------------------
 # max_predictor_sets: 2
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + v_lag1 + v_lag2 + v_lag3 + v_lag4, data = d_lag4)) # -35.88518
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + v_lag1 + v_lag2 + v_lag3 + v_lag4, data = d_lag4))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + a_lag1 + a_lag2 + a_lag3 + a_lag4, data = d_lag4))
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + n_lag1 + n_lag2 + n_lag3 + n_lag4, data = d_lag4)) # -3.309136
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + n_lag1 + n_lag2 + n_lag3 + n_lag4, data = d_lag4))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + p_lag1 + p_lag2 + p_lag3 + p_lag4, data = d_lag4))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + h_lag1 + h_lag2 + h_lag3 + h_lag4, data = d_lag4))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4, data = d_lag4))
@@ -809,7 +814,7 @@ AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + a_lag1 + a_lag2 + a_lag3 + a_l
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + n_lag1 + n_lag2 + n_lag3 + n_lag4, data = d_lag4))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + p_lag1 + p_lag2 + p_lag3 + p_lag4, data = d_lag4))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + h_lag1 + h_lag2 + h_lag3 + h_lag4, data = d_lag4))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4, data = d_lag4)) # 11.11243
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4, data = d_lag4))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + n_lag1 + n_lag2 + n_lag3 + n_lag4, data = d_lag4))
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + p_lag1 + p_lag2 + p_lag3 + p_lag4, data = d_lag4))
@@ -827,8 +832,8 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3 + h_lag4 + dh_lag1 + dh_lag2 + dh_lag3 + 
 
 
 # predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4, data = d_lag4)) # 21.21652
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4, data = d_lag4)) # 27.40498
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4, data = d_lag4))
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4, data = d_lag4))
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4, data = d_lag4))
 AIC(dynlm(c ~ n_lag1 + n_lag2 + n_lag3 + n_lag4, data = d_lag4))
 AIC(dynlm(c ~ p_lag1 + p_lag2 + p_lag3 + p_lag4, data = d_lag4))
@@ -839,7 +844,7 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4, data = d_lag4))
 
 # . Lag Length 5 ---------------------------------------------------------
 # max_predictor_sets: 2
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5, data = d_lag5)) # -39.44621
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5, data = d_lag5))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5, data = d_lag5))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + n_lag1 + n_lag2 + n_lag3 + n_lag4 + n_lag5, data = d_lag5))
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + p_lag1 + p_lag2 + p_lag3 + p_lag4 + p_lag5, data = d_lag5))
@@ -850,7 +855,7 @@ AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + a_lag1 + a_lag2 + a_l
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + n_lag1 + n_lag2 + n_lag3 + n_lag4 + n_lag5, data = d_lag5))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + p_lag1 + p_lag2 + p_lag3 + p_lag4 + p_lag5, data = d_lag5))
 AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5, data = d_lag5))
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, data = d_lag5)) # 5.304252 (GLOBAL MIN without c)
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, data = d_lag5)) # 60.5828 MIN for DL
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + n_lag1 + n_lag2 + n_lag3 + n_lag4 + n_lag5, data = d_lag5))
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + p_lag1 + p_lag2 + p_lag3 + p_lag4 + p_lag5, data = d_lag5))
@@ -868,9 +873,9 @@ AIC(dynlm(c ~ h_lag1 + h_lag2 + h_lag3 + h_lag4 + h_lag5 + dh_lag1 + dh_lag2 + d
 
 
 # predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5, data = d_lag5)) # 14.72657
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5, data = d_lag5))
 
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5, data = d_lag5)) # 20.76768
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5, data = d_lag5))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5, data = d_lag5))
 
@@ -888,7 +893,7 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5, data = d_lag5))
 # max_predictor_sets: 1
 AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6, data = d_lag6))
 
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6, data = d_lag6)) # 11.53252
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6, data = d_lag6))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + a_lag6, data = d_lag6))
 
@@ -904,9 +909,9 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6, data = 
 
 # . Lag Length 7 ---------------------------------------------------------
 # max_predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7, data = d_lag7)) # 4.786252
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7, data = d_lag7))
 
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7, data = d_lag7)) # 5.611666
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7, data = d_lag7))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + a_lag6 + a_lag7, data = d_lag7))
 
@@ -922,9 +927,9 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag
 
 # . Lag Length 8 ---------------------------------------------------------
 # max_predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8, data = d_lag8)) # 7.514695
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8, data = d_lag8))
 
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8, data = d_lag8)) # 8.125897
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8, data = d_lag8))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + a_lag6 + a_lag7 + a_lag8, data = d_lag8))
 
@@ -940,9 +945,9 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag
 
 # . Lag Length 9 ---------------------------------------------------------
 # max_predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8 + c_lag9, data = d_lag9)) # 7.207297
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8 + c_lag9, data = d_lag9))
 
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9, data = d_lag9)) # 10.26664
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9, data = d_lag9))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + a_lag6 + a_lag7 + a_lag8 + a_lag9, data = d_lag9))
 
@@ -958,9 +963,9 @@ AIC(dynlm(c ~ dh_lag1 + dh_lag2 + dh_lag3 + dh_lag4 + dh_lag5 + dh_lag6 + dh_lag
 
 # . Lag Length 10 --------------------------------------------------------
 # max_predictor_sets: 1
-AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8 + c_lag9 + c_lag10, data = d_lag10)) # 5.513185
+AIC(dynlm(c ~ c_lag1 + c_lag2 + c_lag3 + c_lag4 + c_lag5 + c_lag6 + c_lag7 + c_lag8 + c_lag9 + c_lag10, data = d_lag10))
 
-AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9 + v_lag10, data = d_lag10)) # 10.2101
+AIC(dynlm(c ~ v_lag1 + v_lag2 + v_lag3 + v_lag4 + v_lag5 + v_lag6 + v_lag7 + v_lag8 + v_lag9 + v_lag10, data = d_lag10))
 
 AIC(dynlm(c ~ a_lag1 + a_lag2 + a_lag3 + a_lag4 + a_lag5 + a_lag6 + a_lag7 + a_lag8 + a_lag9 + a_lag10, data = d_lag10))
 
