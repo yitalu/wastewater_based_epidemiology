@@ -99,6 +99,8 @@ To decide which variables to include into the above models, we use [Akaike infor
 
 ## Model Diagnosis
 
+[Stardard tests for autocorrelation, normality, homoskedasticity go here.]
+
 
 ## Predictions
 See [prediction_ADL_lag3.pdf](./figures/prediction_ADL_lag3.pdf) and [prediction_DL_lag5.pdf](./figures/prediction_DL_lag5.pdf) for now. 
