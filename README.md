@@ -56,16 +56,22 @@ DL models are just similar to ADL without the lagged dependent variable. The for
 
 $Y_t = \alpha_{0} + \sum_{k=1}^{n} (\sum_{j=1}^{q} \beta_{k, j} X_{k, t-j}) + \epsilon_t$
 
-(VAR and IRF to be added soon ...)
+[VAR and IRF HERE]
+[To be added I promise ...]
 
-Following sections describe 
+The following sections describe details specific to each model.
+
+*Stationarity in Time Series*
+
+Typically, stationary series is used in time series analysis. This is because normally there are trend and cycle in a time series, e.g., stock market index. The series grows over time and fluctuate seasonally. 
 
 
 ### ADL Model
 
+
 ### DL Model
-*Stationarity in Time Series*
-[To be added I promise ...]
+
+
 
 ### VAR Model
 
