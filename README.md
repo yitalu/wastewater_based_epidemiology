@@ -1,6 +1,6 @@
 # Wastewater Based Epidemiology
 
-**[LAST UPDATED: 08.29.2022]**
+**[LAST UPDATED: 08.29.2022; TO BE CONTINUED]**
 
 
 ## Table of contents
