@@ -46,3 +46,42 @@ cor(d$acetaminophen, d$sars_cov_2_virus)
 cor(d$acetaminophen, d$confirmed_cases)
 cor(d$chloroquine, d$desethyl_chloroquine)
 cor(d$sulfamethoxazole, d$trimethoprim)
+
+
+
+# Cross Correlation Functions ---------------------------------------------
+# https://online.stat.psu.edu/stat510/lesson/8/8.2
+lag <- 10
+start <- 1 + lag
+c_lagged <- c[start : length(c)]
+v_lagged <- v[start : length(v)]
+a_lagged <- a[start : length(a)]
+dh_lagged <- dh[start : length(dh)]
+
+cor(v[1:(length(v)-lag)], c_lagged)
+cor(c[1:(length(c)-lag)], v_lagged)
+
+cor(a[1:(length(a)-lag)], c_lagged)
+cor(c[1:(length(c)-lag)], a_lagged)
+
+cor(dh[1:(length(dh)-lag)], c_lagged, method = "pearson")
+cor(c[1:(length(c)-lag)], dh_lagged, method = "pearson")
+
+
+cor(c, dh)
+cor(c[1:(length(c)-lag)], dh_lagged)
+
+cor(c[1:(length(c)-lag)], v_lagged)
+cor(v[1:(length(c)-lag)], c_lagged)
+
+ccf(c, v)
+ccfvalues <- ccf(c, v)
+ccfvalues
+
+ccf(c, a)
+ccfvalues <- ccf(c, a)
+ccfvalues
+
+ccf(c, dh)
+ccfvalues <- ccf(c, dh)
+ccfvalues

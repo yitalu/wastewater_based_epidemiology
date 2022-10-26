@@ -4,8 +4,8 @@
 
 # Load Package and Data ---------------------------------------------------
 library("data.table")
-d <- fread("./data/wastewater_20220601.csv")
-
+# d <- fread("./data/wastewater_20220601.csv")
+d <- fread("./data/wastewater_20221019.csv")
 
 
 # Preprocess Data ---------------------------------------------------------
