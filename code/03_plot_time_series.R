@@ -91,6 +91,7 @@ plot(d$sars_cov_2_virus * 1e-3 ~ d$sampling_date, type = "l", xlab = "Sampling D
 # points(d$sars_cov_2_virus * 1e-3 ~ d$sampling_date, pch = 20)
 lines(d$confirmed_cases ~ d$sampling_date, type = "l", col = "blue")
 lines(d$acetaminophen ~ d$sampling_date, col = "#ff7b00f5")
+lines(d$desethyl_hydroxychloroquine*1e5 ~ d$sampling_date, col = "red")
 
 grid(col = "black", lty = "dotted")
 legend("topleft", legend = c("SARS-CoV-2 Virus", "Confirmed Cases", "Acetaminophen"), col = c("black", "blue", "orange"), lty=1)

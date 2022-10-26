@@ -49,39 +49,42 @@ cor(d$sulfamethoxazole, d$trimethoprim)
 
 
 
-# Cross Correlation Functions ---------------------------------------------
-# https://online.stat.psu.edu/stat510/lesson/8/8.2
-lag <- 10
+
+# Pearson Correlations between Lagged/Lead Variables ----------------------
+lag <- 1
 start <- 1 + lag
 c_lagged <- c[start : length(c)]
 v_lagged <- v[start : length(v)]
 a_lagged <- a[start : length(a)]
 dh_lagged <- dh[start : length(dh)]
 
-cor(v[1:(length(v)-lag)], c_lagged)
-cor(c[1:(length(c)-lag)], v_lagged)
+cor(v[1:(length(v)-lag)], c_lagged, method = "pearson")
+cor(c[1:(length(c)-lag)], v_lagged, method = "pearson")
 
-cor(a[1:(length(a)-lag)], c_lagged)
-cor(c[1:(length(c)-lag)], a_lagged)
+cor(a[1:(length(a)-lag)], c_lagged, method = "pearson")
+cor(c[1:(length(c)-lag)], a_lagged, method = "pearson")
 
 cor(dh[1:(length(dh)-lag)], c_lagged, method = "pearson")
 cor(c[1:(length(c)-lag)], dh_lagged, method = "pearson")
 
 
-cor(c, dh)
-cor(c[1:(length(c)-lag)], dh_lagged)
 
-cor(c[1:(length(c)-lag)], v_lagged)
-cor(v[1:(length(c)-lag)], c_lagged)
-
-ccf(c, v)
-ccfvalues <- ccf(c, v)
+# Cross Correlation Functions ---------------------------------------------
+# https://online.stat.psu.edu/stat510/lesson/8/8.2
+ccfvalues <- ccf(v, c)
 ccfvalues
+# pdf("./figures/cross_correlation_case_virus.pdf", width = 9, height = 6)
+plot(ccf(v, c), ylab = "Cross Correlation", xlab = "Time-Adjusted Virus Concentration", main = "Peak of Virus Concentration Leads About 1 Time Step")
+# dev.off()
 
-ccf(c, a)
 ccfvalues <- ccf(c, a)
 ccfvalues
+# pdf("./figures/cross_correlation_case_acetaminophem.pdf", width = 9, height = 6)
+plot(ccf(a, c), ylab = "Cross Correlation", xlab = "Time-Adjusted Acetaminophem",  main = "No Lead of Acetaminophem")
+# dev.off()
 
-ccf(c, dh)
-ccfvalues <- ccf(c, dh)
+ccfvalues <- ccf(dh, c)
 ccfvalues
+# pdf("./figures/cross_correlation_case_DesethylHydroxychloroquine.pdf", width = 9, height = 6)
+plot(ccf(dh, c), ylab = "Cross Correlation", xlab = "Time-Adjusted DesethylHydroxychloroquine",  main = "Peak of DesethylHydroxychloroquine Leads About 10 Time Steps")
+# dev.off()
