@@ -88,3 +88,5 @@ ccfvalues
 # pdf("./figures/cross_correlation_case_DesethylHydroxychloroquine.pdf", width = 9, height = 6)
 plot(ccf(dh, c), ylab = "Cross Correlation", xlab = "Time-Adjusted DesethylHydroxychloroquine",  main = "Peak of DesethylHydroxychloroquine Leads About 10 Time Steps")
 # dev.off()
+
+# [**NOTE**] Previous studies use Maximum Pearson correlation to gauge the lead time. We do not advocate this method on time series data as Pearson correlation is more appropriate when there is no serial correlation, i.e. no spurious correlation, within variables. Otherwise, the coefficients tend to be inflated due to the dependence within series, even though the relative relationships of coefficients could be equivalent to our approach.
