@@ -42,7 +42,7 @@ We plot time series of these variables to further see if they have similar trend
 
 
 ## Cross Correlations
-We look at cross correlations between Confirmed Case and (1) Virus Concentration, (2) Acetaminophem, and (3) DesethylHydroxychloroquine. That is, if there is any lead time between any of the three variables and the Confirmed Case. Results are presented in figures [Cross Correlation with Virus](./figures/cross_correlation_case_virus.pdf), [Cross Correlation with Acetaminophem](./figures/cross_correlation_case_acetaminophem.pdf), and [Cross Correlation with DesethylHydroxychloroquine](./figures/cross_correlation_case_DesethylHydroxychloroquine.pdf), respectively. From these plots specifically, DesethylHydroxychloroquine seems to be a good indicator for early warning of cases outbreak.
+We look at cross correlations between Confirmed Case and (1) Virus Concentration, (2) Acetaminophem, and (3) DesethylHydroxychloroquine. That is, if there is any lead time between the peaks of any of the three variables and the Confirmed Case. Results are presented in figures [Cross Correlation with Virus](./figures/cross_correlation_case_virus.pdf), [Cross Correlation with Acetaminophem](./figures/cross_correlation_case_acetaminophem.pdf), and [Cross Correlation with DesethylHydroxychloroquine](./figures/cross_correlation_case_DesethylHydroxychloroquine.pdf), respectively. From those plots specifically, DesethylHydroxychloroquine seems to be a good indicator for early warning of cases outbreak.
 
 
 ## Models
