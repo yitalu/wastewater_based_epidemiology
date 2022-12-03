@@ -51,7 +51,7 @@ cor(d$sulfamethoxazole, d$trimethoprim)
 
 
 # Pearson Correlations between Lagged/Lead Variables ----------------------
-lag <- 1
+lag <- 5
 start <- 1 + lag
 c_lagged <- c[start : length(c)]
 v_lagged <- v[start : length(v)]
