@@ -55,13 +55,13 @@ For time series plots of these variables, see [03_plot_time_series.R](./code/03_
 ## Models
 We regress our dependent variable, Confirmed Case at time t ($C_t$), on lags of the predictor variable(s), $X_{1, \space t-1}$, $X_{1, \space t-2}$, $X_{1, \space t-3}$, ...; $X_{2, \space t-1}$, $X_{2, \space t-2}$, $X_{2, \space t-3}$, ...; $X_{3, \space t-1}$, $X_{3, \space t-2}$, $X_{3, \space t-3}$, ..., etc., via a generalized linear model (GLM). The number of confirmed cases is modeled as a binomial distribution. The trial number equals the population in the area covered by the wastewater station where we collected data ($N = 3.3 \times 10^5$). The probability of individual infection is a logistic function of linear combinations of our predictor variables. The models have the general form: 
 
-> $C_t \sim Binomial(N, \space p)$
+> $$C_t \sim Binomial(N, \space p)$$
 >
 > $$logit(p) = \alpha + \sum_{j=1}^{q} (\sum_{i=1}^{p} \beta_{ji} X_{j, t-i})$$
 > 
-> $\alpha \sim Normal(\bar \alpha, \space \sigma_{\alpha})$
+> $$\alpha \sim Normal(\bar \alpha, \space \sigma_{\alpha})$$
 > 
-> $\beta_{ji} \sim Normal(\bar \beta_{ji}, \space \sigma_{\beta_{ji}})$
+> $$\beta_{ji} \sim Normal(\bar \beta_{ji}, \space \sigma_{\beta_{ji}})$$
 
 Three specific sets of model are considered:
 
@@ -75,13 +75,13 @@ For each set of models, we test possible combinations of variables according to 
 
 M-110s regress the current Confirmed Case on ten lags of a single predictor variable. Four candidate substances are considered: 1) Virus, 2) Acetaminophen, 3) Desethyl-Hydroxychloroquine, and 4) Nicotine. The Virus model has the lowest WAIC score and has the following form: 
 
-> $C_t \sim Binomial(3.3\times 10^5, \space p)$
+> $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
 > 
-> $logit(p) = \alpha + \sum_{i=1}^{10} \beta_{Vi} V_{t-i}$
+> $$logit(p) = \alpha + \sum_{i=1}^{10} \beta_{Vi} V_{t-i}$$
 > 
-> $\alpha \sim Normal(-10, \space1)$
+> $$\alpha \sim Normal(-10, \space1)$$
 > 
-> $\beta_{Vi} \sim Normal(0.5, \space 0.5)$
+> $$\beta_{Vi} \sim Normal(0.5, \space 0.5)$$
 
 [Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model. For the choice of priors, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
 
@@ -89,13 +89,13 @@ M-110s regress the current Confirmed Case on ten lags of a single predictor vari
 
 M-205s regress the current Confirmed Case on five lags of two predictor substances. The model with Virus concentration and Desethyl-Hydroxychloroquine: 
 
-> $C_t \sim Binomial(3.3\times 10^5, \space p)$
+> $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
 > 
-> $logit(p) = \alpha + \sum_{i=1}^{5} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i})$
+> $$logit(p) = \alpha + \sum_{i=1}^{5} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i})$$
 > 
-> $\alpha \sim Normal(-10, \space1)$
+> $$\alpha \sim Normal(-10, \space1)$$
 > 
-> $\beta_{Vi}, \space \beta_{DHi} \sim Normal(0.5, \space 0.5)$
+> $$\beta_{Vi}, \space \beta_{DHi} \sim Normal(0.5, \space 0.5)$$
 
 has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows the out-sample prediction by this model.
 
@@ -103,13 +103,13 @@ has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows 
 
 M-303s regress the current Confirmed Case on three substances, each with three lags. The best model uses 1) Virus, 2) Desethyl-Hydroxychloroquine, and 3) Acetaminophen as predictors and has the following form:
 
-> $C_t \sim Binomial(3.3\times 10^5, \space p)$
+> $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
 > 
-> $logit(p) = \alpha + \sum_{i=1}^{3} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i} + \beta_{Ai} A_{t-i})$
+> $$logit(p) = \alpha + \sum_{i=1}^{3} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i} + \beta_{Ai} A_{t-i})$$
 > 
-> $\alpha \sim Normal(-10, \space1)$
+> $$\alpha \sim Normal(-10, \space1)$$
 > 
-> $\beta_{Vi}, \space \beta_{DHi}, \space \beta_{Ai} \sim Normal(0.5, \space 0.5)$
+> $$\beta_{Vi}, \space \beta_{DHi}, \space \beta_{Ai} \sim Normal(0.5, \space 0.5)$$
 
 [Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model.
 
