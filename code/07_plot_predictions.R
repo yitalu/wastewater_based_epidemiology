@@ -34,9 +34,9 @@ post_sim <- sim(m.a3dh3n3, data = list(A1 = d_lag3$a_lag1, A2 = d_lag3$a_lag2, A
 # Plot Prediction ---------------------------------------------------------
 lag_length <- dim(d)[1] - dim(post_sim)[2]
 
-# plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from Past 10 Days")
-plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus and Desethyl-Hydroxychloroquine from Past 5 Days")
-# plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction by Virus, \n Desethyl-Hydroxychloroquine, and Acetaminophen from Past 3 Days")
+# plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from the Past 10 Days")
+# plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus and Desethyl-Hydroxychloroquine from the Past 5 Days")
+plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction by Virus, \n Desethyl-Hydroxychloroquine, and Acetaminophen from the Past 3 Days")
 for (i in 1:50) {
   lines(1:(111-lag_length), post_sim[i, ], lty = 1, col = 2, lwd = 1)
 }

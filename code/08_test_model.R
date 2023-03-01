@@ -67,7 +67,7 @@ post_sim <- sim(m.v10, data = list(V1 = d_test_lag10$v_lag1, V2 = d_test_lag10$v
 # Plot Prediction ---------------------------------------------------------
 lag_length <- dim(d_test)[1] - dim(post_sim)[2]
 
-plot(NULL, xlim = c(0, 150-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from Past 10 Days")
+plot(NULL, xlim = c(0, 150-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from the Past 10 Days")
 
 rect(xleft = 101, xright = 150, ybottom = par("usr")[3], ytop = par("usr")[4], border = NA, col = adjustcolor("#6BD7AF", alpha = 0.3))
 
