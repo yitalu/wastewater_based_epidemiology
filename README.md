@@ -13,6 +13,7 @@
   - [M-110s](#m-110s)
   - [M-205s](#m-205s)
   - [M-303s](#m-303s)
+- [Model Validation](#model-validation)
 - [Appendix](#appendix)
   - [Prior Predictive Simulation](#prior-predictive-simulation)
 
