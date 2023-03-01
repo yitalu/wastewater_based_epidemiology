@@ -83,7 +83,7 @@ $$\alpha \sim Normal(-10, \space1)$$
 
 $$\beta_{Vi} \sim Normal(0.5, \space 0.5)$$
 
-[Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model. For the choice of priors, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
+[Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model.
 
 ### M-205s
 
@@ -111,7 +111,7 @@ $$\alpha \sim Normal(-10, \space1)$$
 
 $$\beta_{Vi}, \space \beta_{DHi}, \space \beta_{Ai} \sim Normal(0.5, \space 0.5)$$
 
-[Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model.
+[Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model. For the choice of priors in above models, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
 
 
 ## Model Validation
