@@ -55,13 +55,10 @@ For time series plots of these variables, see [03_plot_time_series.R](./code/03_
 ## Models
 We regress our dependent variable, Confirmed Case at time t ($C_t$), on lags of the predictor variable(s), $X_{1, \space t-1}$, $X_{1, \space t-2}$, $X_{1, \space t-3}$, ...; $X_{2, \space t-1}$, $X_{2, \space t-2}$, $X_{2, \space t-3}$, ...; $X_{3, \space t-1}$, $X_{3, \space t-2}$, $X_{3, \space t-3}$, ..., etc., via a generalized linear model (GLM). The number of confirmed cases is modeled as a binomial distribution. The trial number equals the population in the area covered by the wastewater station where we collected data ($N = 3.3 \times 10^5$). The probability of individual infection is a logistic function of linear combinations of our predictor variables. The models have the general form: 
 
-> $$C_t \sim Binomial(N, \space p)$$
->
-> $$logit(p) = \alpha + \sum_{j=1}^{q} (\sum_{i=1}^{p} \beta_{ji} X_{j, t-i})$$
-> 
-> $$\alpha \sim Normal(\bar \alpha, \space \sigma_{\alpha})$$
-> 
-> $$\beta_{ji} \sim Normal(\bar \beta_{ji}, \space \sigma_{\beta_{ji}})$$
+$$C_t \sim Binomial(N, \space p)$$
+$$logit(p) = \alpha + \sum_{j=1}^{q} (\sum_{i=1}^{p} \beta_{ji} X_{j, t-i})$$
+$$\alpha \sim Normal(\bar \alpha, \space \sigma_{\alpha})$$
+$$\beta_{ji} \sim Normal(\bar \beta_{ji}, \space \sigma_{\beta_{ji}})$$
 
 Three specific sets of model are considered:
 
