@@ -71,7 +71,7 @@ Three specific sets of model are considered:
 
 For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). We retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the number of predictors does not exceed 10. The following sections describe details of the best-performing model in each model set.
 
-### *M-110s*
+### M-110s
 
 M-110s regress the current Confirmed Case on ten lags of a single predictor variable. Four candidate substances are considered: 1) Virus, 2) Acetaminophen, 3) Desethyl-Hydroxychloroquine, and 4) Nicotine. The Virus model has the lowest WAIC score and has the following form: 
 
@@ -85,7 +85,7 @@ M-110s regress the current Confirmed Case on ten lags of a single predictor vari
 
 [Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model. For the choice of priors, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
 
-### *M-205s*
+### M-205s
 
 M-205s regress the current Confirmed Case on five lags of two predictor substances. The model with Virus concentration and Desethyl-Hydroxychloroquine: 
 
@@ -99,7 +99,7 @@ M-205s regress the current Confirmed Case on five lags of two predictor substanc
 
 has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows the out-sample prediction by this model.
 
-### *M-303s*
+### M-303s
 
 M-303s regress the current Confirmed Case on three substances, each with three lags. The best model uses 1) Virus, 2) Desethyl-Hydroxychloroquine, and 3) Acetaminophen as predictors and has the following form:
 
