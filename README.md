@@ -119,7 +119,7 @@ M-303s regress the current Confirmed Case on three substances, each with three l
 
 We use an additional dataset to validate our model. The data is collected from January 2022 onward and consists of 39 observations. However, since only confirmed case and virus concentration are recorded, we are only able to validete our first model --- prediction solely by virus concentration.
 
-[Figure 4](./figures/prediction_m110_v10_validate.pdf) shows the result. We use virus concentrations from this new dataset as inputs to predict confirmed cases in the same period. The shaded area in the plot indicates that the model captures the epidemic trend quite well, except around the peak range. The difference between the predicted and actual values around the peak area might be due to measurement errors or other human factors. With further information, it is easier to know the source of this difference. Considering that future new datasets can be used to calibrate the model and the purpose of out-sample prediction, this model should be exemplary for future use.
+[Figure 4](./figures/prediction_m110_v10_validate.pdf) shows the result. We use virus concentrations from this new dataset as inputs to predict confirmed cases in the same period. The shaded area in the plot indicates that the model captures the epidemic trend quite well, except around the peak range. The difference between the predicted and actual values around the peak area might be due to measurement errors or other human factors. Without further information, it is not easy to identify the source of this difference. Nonetheless, considering the model can be calibrated by new datasets and its purpose for out-sample prediction, this model should be exemplary for future use.
 
 
 
