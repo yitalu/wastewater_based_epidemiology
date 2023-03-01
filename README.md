@@ -75,13 +75,13 @@ For each set of models, we test possible combinations of variables according to 
 
 M-110s regress the current Confirmed Case on ten lags of a single predictor variable. Four candidate substances are considered: 1) Virus, 2) Acetaminophen, 3) Desethyl-Hydroxychloroquine, and 4) Nicotine. The Virus model has the lowest WAIC score and has the following form: 
 
-> $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
-> 
-> $$logit(p) = \alpha + \sum_{i=1}^{10} \beta_{Vi} V_{t-i}$$
-> 
-> $$\alpha \sim Normal(-10, \space1)$$
-> 
-> $$\beta_{Vi} \sim Normal(0.5, \space 0.5)$$
+$$C_t \sim Binomial(3.3\times 10^5, \space p)$$
+
+$$logit(p) = \alpha + \sum_{i=1}^{10} \beta_{Vi} V_{t-i}$$
+
+$$\alpha \sim Normal(-10, \space1)$$
+
+$$\beta_{Vi} \sim Normal(0.5, \space 0.5)$$
 
 [Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model. For the choice of priors, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
 
@@ -89,13 +89,13 @@ M-110s regress the current Confirmed Case on ten lags of a single predictor vari
 
 M-205s regress the current Confirmed Case on five lags of two predictor substances. The model with Virus concentration and Desethyl-Hydroxychloroquine: 
 
-> $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
-> 
-> $$logit(p) = \alpha + \sum_{i=1}^{5} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i})$$
-> 
-> $$\alpha \sim Normal(-10, \space1)$$
-> 
-> $$\beta_{Vi}, \space \beta_{DHi} \sim Normal(0.5, \space 0.5)$$
+$$C_t \sim Binomial(3.3\times 10^5, \space p)$$
+
+$$logit(p) = \alpha + \sum_{i=1}^{5} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i})$$
+
+$$\alpha \sim Normal(-10, \space1)$$
+
+$$\beta_{Vi}, \space \beta_{DHi} \sim Normal(0.5, \space 0.5)$$
 
 has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows the out-sample prediction by this model.
 
@@ -103,13 +103,13 @@ has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows 
 
 M-303s regress the current Confirmed Case on three substances, each with three lags. The best model uses 1) Virus, 2) Desethyl-Hydroxychloroquine, and 3) Acetaminophen as predictors and has the following form:
 
-> $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
-> 
-> $$logit(p) = \alpha + \sum_{i=1}^{3} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i} + \beta_{Ai} A_{t-i})$$
-> 
-> $$\alpha \sim Normal(-10, \space1)$$
-> 
-> $$\beta_{Vi}, \space \beta_{DHi}, \space \beta_{Ai} \sim Normal(0.5, \space 0.5)$$
+$$C_t \sim Binomial(3.3\times 10^5, \space p)$$
+
+$$logit(p) = \alpha + \sum_{i=1}^{3} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i} + \beta_{Ai} A_{t-i})$$
+
+$$\alpha \sim Normal(-10, \space1)$$
+
+$$\beta_{Vi}, \space \beta_{DHi}, \space \beta_{Ai} \sim Normal(0.5, \space 0.5)$$
 
 [Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model.
 
