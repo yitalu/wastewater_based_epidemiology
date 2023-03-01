@@ -77,7 +77,7 @@ ccfvalues
 plot(ccf(v, c), ylab = "Cross Correlation", xlab = "Time-Adjusted Virus Concentration", main = "Peak of Virus Concentration Leads About 1 Time Step")
 # dev.off()
 
-ccfvalues <- ccf(c, a)
+ccfvalues <- ccf(a, c)
 ccfvalues
 # pdf("./figures/cross_correlation_case_acetaminophem.pdf", width = 9, height = 6)
 plot(ccf(a, c), ylab = "Cross Correlation", xlab = "Time-Adjusted Acetaminophem",  main = "No Lead of Acetaminophem")
@@ -90,3 +90,11 @@ plot(ccf(dh, c), ylab = "Cross Correlation", xlab = "Time-Adjusted DesethylHydro
 # dev.off()
 
 # [**NOTE**] Previous studies use Maximum Pearson correlation to gauge the lead time. We do not advocate this method on time series data as Pearson correlation is more appropriate when there is no serial correlation, i.e. no spurious correlation, within variables. Otherwise, the coefficients tend to be inflated due to the dependence within series, even though the relative relationships of coefficients could be equivalent to our approach.
+
+
+# Testing:
+ccfvalues <- ccf(v, c)
+ccfvalues
+# pdf("./figures/cross_correlation_case_virus.pdf", width = 9, height = 6)
+plot(ccf(p, dh), ylab = "Cross Correlation", xlab = "Time-Adjusted Virus Concentration", main = "Peak of Virus Concentration Leads About 1 Time Step")
+# dev.off()

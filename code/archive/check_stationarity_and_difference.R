@@ -32,10 +32,14 @@ acetaminophen_d4 <- diff(acetaminophen_d3)
 # Check Stationarity and Level of Integration ----
 # variable: confirmed_cases
 adf.test(confirmed_cases) # p-value = 0.2673, non-stationary, Lag order = 4
-aadf.test(confirmed_cases_d1)
+adf.test(confirmed_cases_d1)
 adf.test(confirmed_cases_d2)
 tseries::adf.test(confirmed_cases_d1)
 tseries::adf.test(confirmed_cases_d2)
+
+tseries::adf.test(c)
+tseries::adf.test(diff(c))
+tseries::adf.test(diff(diff(c)))
 
 kpss.test(confirmed_cases)
 tseries::kpss.test(confirmed_cases)
@@ -55,6 +59,10 @@ kpss.test(sars_cov_2_virus)
 kpss.test(sars_cov_2_virus_d1)
 tseries::kpss.test(sars_cov_2_virus)
 tseries::kpss.test(sars_cov_2_virus_d1)
+
+tseries::adf.test(v)
+tseries::adf.test(diff(v))
+tseries::adf.test(diff(diff(v)))
 
 plot(sars_cov_2_virus)
 plot(sars_cov_2_virus_d1)

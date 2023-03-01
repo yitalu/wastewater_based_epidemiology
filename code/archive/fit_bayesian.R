@@ -1,10 +1,15 @@
 library(rethinking)
 library(rstan)
-source("./code/load_data.R")
+# source("./code/load_data.R")
 dens(d$acetaminophen, main = "Acetaminophen") # in gene copies/L
 dens(d$confirmed_cases, main = "Confirmed Cases") # 7 days moving average
 dens(d$sars_cov_2_virus, main = "Virus") # in µg/L
-dens(d$sars_cov_2_virus_log)
+dens(d$desethyl_hydroxychloroquine)
+
+dens(log(d$confirmed_cases))
+dens(log(d$sars_cov_2_virus))
+dens(log(d$acetaminophen))
+dens(log(d$desethyl_hydroxychloroquine))
 
 summary(d$confirmed_cases)
 summary(d$acetaminophen)
@@ -28,7 +33,7 @@ curve(dlnorm(x, meanlog = 10, sdlog = 4), from = 0, to = 1000)
 
 
 x <- rlnorm(1000, -2, 5)
-plot(density(log(x)))
+plot(density(log10(x)))
 plot(density(x), xlim = c(0, 100))
 mean(log(x))
 sd(log(x))
@@ -65,11 +70,26 @@ sim_CVA <- function(n_steps, init, beta, dt = 0.001) {
 
 
 
+sim_CV <- function(n_steps, init, beta, dt = 0.002) {
+  C <- rep(NA, n_steps)
+  V <- rep(NA, n_steps)
+  C[1] <- init[1]
+  V[1] <- init[2]
+  for (i in 2:n_steps) {
+    C[i] <- C[i-1] + dt * (beta[1] * V[i-1] - beta[2] * C[i-1])
+    V[i] <- V[i-1] + dt * (beta[3] * V[i-1] - beta[4] * C[i-1])
+  }
+  return(cbind(C, V))
+}
+
+
 # Simulation --------------------------------------------------------------
-beta <- c(0.5, 0.5, 0.5, 0.05, 0.8)
+# beta <- c(0.5, 0.5, 0.5, 0.05, 0.8)
 beta <- c(1, 1, 1, 1, 0.5)
+beta <- c(1, 0.5, -1, 1)
 # z <- sim_CVA(1e4, cbind(d$confirmed_cases, d$sars_cov_2_virus * 1e-3, standardize(d$acetaminophen))[1,], beta)
-z <- sim_CVA(1e4, cbind(c, v, a)[1,], beta)
+# z <- sim_CVA(1e4, cbind(c, v, a)[1,], beta)
+z <- sim_CV(1e3, cbind(c, v)[1,], beta)
 
 # z <- sim_CVA(1e4, cbind(d$confirmed_cases, d$sars_cov_2_virus, standardize(d$acetaminophen))[1, ], beta)
 
@@ -116,10 +136,6 @@ any(c_prior == 0)
 dens(d$confirmed_cases)
 
 # ulam --------------------------------------------------------------------
-
-
-
-
 fit <- ulam(
   alist(
     C ~ dlnorm( log(mu_c + 1), sigma_c ), 
@@ -149,3 +165,44 @@ for (s in 2:111) {
   lines(d$sampling_date[2:111], mu[s, ], col = col.alpha(rangi2, 0.2), lwd = 1)
 }
 grid()
+
+
+
+# Bayesian DL model -------------------------------------------------------
+m3 <- brm(formula = c ~ v + dh, data = d_standardized, iter = 4000)
+
+dens(d$confirmed_cases)
+dens(100*rlnorm(1e3, 0, 1))
+
+dlnorm()
+
+exponential(0.5)
+rexp(0.5)
+
+fit <- ulam(
+  alist(
+    c ~ dlnorm( mu_c+1, sigma_c ), 
+    exp(mu_c) <- a + bv_1 * v_lag1 + bv_2 * v_lag2 + bv_3 * v_lag3 + bv_4 * v_lag4 + bv_5 * v_lag5 + bdh_1 * dh_lag1 + bdh_2 * dh_lag2 + bdh_3 * dh_lag3 + bdh_4 * dh_lag4 + bdh_5 * dh_lag5,
+    a ~ exponential(0.5), 
+    bv_1 ~ uniform(0, 1),
+    bv_2 ~ uniform(0, 1),
+    bv_3 ~ uniform(0, 1),
+    bv_4 ~ uniform(0, 1),
+    bv_5 ~ uniform(0, 1),
+    bdh_1 ~ uniform(0, 1),
+    bdh_2 ~ uniform(0, 1),
+    bdh_3 ~ uniform(0, 1),
+    bdh_4 ~ uniform(0, 1),
+    bdh_5 ~ uniform(0, 1),
+    sigma_c ~ exponential(0.5)
+  ), data = d_lag5, chains = 4, cores = 4
+)
+
+fit <- ulam(
+  alist(
+    
+  )
+)
+
+
+

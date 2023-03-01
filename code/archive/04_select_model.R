@@ -34,7 +34,7 @@ sample_per_predictor <- 10
 # Load Package and Data ---------------------------------------------------
 # library("dynlm")
 # library("leaps")
-source(file = "./code/01_load_data.R")
+# source(file = "./code/01_load_data.R")
 
 
 

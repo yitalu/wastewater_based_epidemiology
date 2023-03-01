@@ -1,33 +1,39 @@
 # Wastewater Based Epidemiology
 
-**[LAST UPDATED: 10.26.2022; TO BE CONTINUED]**
+**[LAST UPDATED: 2.26.2023; TO BE CONTINUED]**
 
 
 ## Table of contents
-- [Overview](#overview)
-- [Data Preprocessing](#data-preprocessing)
-- [Data Exploration](#data-exploration)
-- [Models](#models)
-    - [ADL Model](#adl-model)
-    - [DL Model](#dl-model)
-    - [VAR Model](#var-model)
-- [Model Selection](#model-selection)
-- [Model Diagnosis](#model-diagnosis)
-- [Predictions](#predictions)
+- [Wastewater Based Epidemiology](#wastewater-based-epidemiology)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Data Preprocessing](#data-preprocessing)
+  - [Data Exploration](#data-exploration)
+    - [Correlations](#correlations)
+    - [Cross Correlations](#cross-correlations)
+    - [Temporal Trends](#temporal-trends)
+  - [Models](#models)
+    - [*One Substance Model*](#one-substance-model)
+  - [Prior Predictive Simulation](#prior-predictive-simulation)
+  - [Model Selection](#model-selection)
 
 ---
 
 ## Overview
-This project aims to predict COVID-19 confirmed cases in an area with previous confirmed cases and wastewater chemicals from the past few days. Two time series models are built and fitted to data collected in Suffolk County, NY, USA from mid 2020 to the begining of 2021. Specifically, the first model allows us to predict current number of confirm case by looking at 1) confirmed cases, 2) concentration of virus gene copies, and 3) nicotine in wastewater from the three previous days. The second model removes the predictor of past confirmed case (and hence the need to record this number) and uses only 1) virus concentration, and 2) Desethyl Hydroxychloroquine from five previous days to achieve the same goal. Both models could potentially give some leeway to the public health authorities and facilitate their policymaking.
+This project aims to predict COVID-19 confirmed cases in an area with wastewater chemicals from the past few days. Three Bayesian models are built and fitted to data collected in Suffolk County, NY, USA from mid 2020 to the beginning of 2021. The first model uses the concentration of virus gene copies from the past ten days to predict the current number of confirmed case. The second model allows us to make the same prediction by looking at 1) virus concentration and 2) Desethyl-Hydroxychloroquine in the past five days. The third model shortens the need for recording period to three days without losing accuracy too much by adding Acetaminophen as a third predictor. These models can provide public health authorities with additional information and assist their policymaking.
+
+
 
 
 ## Data Preprocessing
-We do two things to pre-process our data. First, in the later steps it appears needs to avoid heteroscedasticity (non-constant variance of error terms) by transforming data (see [CROSS-REFERENCE HERE]). Therefore, we replace 0 confirmed case with value 0.1. Given the scale of the variable and the purpose of forecasting the macro-level outbreak, this shouldn't be a problem.
+Except for the variable Confirmed Case, all other variables are adjusted in the following ways for the ease of modeling or interpretation. First, virus concentration is log-transformed with base 10. Rather than standardizing, all predictor variables suggested by the correlation plots and prior knowledge (see [Data Exploration](#data-exploration)) are divided by their maximum value in the sample and rescaled into values between 0 and 1. This way, we retain zero as a reference point while being able to make sense of the priors across variables in our modeling. See the script [01_load_data.R](./code/01_load_data.R) for details.
 
-Since variables have different units, in order to compare, we also adjust their scales for all the following analysis. All variables of interest suggested by the correlation plots and prior knowledge (see [Data Exploration](#data-exploration)) are standardized into positive values. See the Standardize Variables part of the script [01_load_data.R](./code/01_load_data.R) for details.
+
 
 
 ## Data Exploration
+
+### Correlations
 For correlations between variables, see file [02_plot_correlations.R](./code/02_plot_correlations.R), figures [correlation_map_full.pdf](./figures/correlation_map_full.pdf) and [correlation_map_part.pdf](./figures/correlation_map_part.pdf). Correlation plots together with prior knowledge indicate strong correlations between our variables of interest, which are: 
 
 1. Confirmed Case ($C_t$)
@@ -36,82 +42,88 @@ For correlations between variables, see file [02_plot_correlations.R](./code/02_
 4. Nicotine ($N_t$)
 5. Paraxanthine ($P_t$)
 6. Hydroxychloroquine ($H_t$)
-7. Desethyl Hydroxychloroquine ($DH_t$)
+7. Desethyl-Hydroxychloroquine ($DH_t$)
 
-We plot time series of these variables to further see if they have similar trends over time. Not all pairs of them show consistent patterns, but we keep them all for now and leave the judgements of what to retain to the model selection process (section [WHAT]).
+### Cross Correlations
+We also look at cross-correlations between Confirmed Cases and (1) Virus Concentration, (2) Acetaminophen, and (3) Desethyl-Hydroxychloroquine. That is, if there is any lead time between the peaks of any of the three variables and the Confirmed Case. Results are presented in figures [Cross Correlation with Virus](./figures/cross_correlation_case_virus.pdf), [Cross Correlation with Acetaminophem](./figures/cross_correlation_case_acetaminophem.pdf), and [Cross Correlation with DesethylHydroxychloroquine](./figures/cross_correlation_case_DesethylHydroxychloroquine.pdf), respectively. From those plots specifically, Desethyl-Hydroxychloroquine seems to be a good indicator for early warning of cases outbreak.
+
+### Temporal Trends
+For time series plots of these variables, see [03_plot_time_series.R](./code/03_plot_time_series.R) and figure [trend.pdf](./figures/trend.pdf) as an example. Variables such as Virus and Desethyl-Hydroxychloroquine show similar trends as our outcome variable, Confirmed Case, and are chosen as predictors in our models.
 
 
-## Cross Correlations
-We look at cross correlations between Confirmed Case and (1) Virus Concentration, (2) Acetaminophem, and (3) DesethylHydroxychloroquine. That is, if there is any lead time between the peaks of any of the three variables and the Confirmed Case. Results are presented in figures [Cross Correlation with Virus](./figures/cross_correlation_case_virus.pdf), [Cross Correlation with Acetaminophem](./figures/cross_correlation_case_acetaminophem.pdf), and [Cross Correlation with DesethylHydroxychloroquine](./figures/cross_correlation_case_DesethylHydroxychloroquine.pdf), respectively. From those plots specifically, DesethylHydroxychloroquine seems to be a good indicator for early warning of cases outbreak.
 
 
 ## Models
-For the purpose introduced in the [Overview](#overview) section, we fit three sets of model:
+We regress our dependent variable, Confirmed Case at time t ($C_t$), on lags of the predictor variable(s), $X_{1, \space t-1}$, $X_{1, \space t-2}$, $X_{1, \space t-3}$, ...; $X_{2, \space t-1}$, $X_{2, \space t-2}$, $X_{2, \space t-3}$, ...; $X_{3, \space t-1}$, $X_{3, \space t-2}$, $X_{3, \space t-3}$, ..., etc., via a generalized linear model (GLM). The number of confirmed cases is modeled as a binomial distribution. The trial number equals the population in the area covered by the wastewater station where we collected data ($N = 3.3 \times 10^5$). The probability of individual infection is a logistic function of linear combinations of our predictor variables. The models have the general form: 
 
-1. Autoregressive Distributed Lag (ADL) models
-2. Distributed Lag (ADL) models
-3. Vector Autoregressive Models and their corresponding Impulse Response Functions.
+> $C_t \sim Binomial(N, \space p)$
+>
+> $logit(p) = \alpha + \sum_{j=1}^{q} (\sum_{i=1}^{p} \beta_{ji} X_{j, t-i})$
+> 
+> $\alpha \sim Normal(\bar \alpha, \space \sigma_{\alpha})$
+> 
+> $\beta_{ji} \sim Normal(\bar \beta_{ji}, \space \sigma_{\beta_{ji}})$
 
-The following sections describe details specific to each model.
+Three specific sets of model are considered:
 
+1. M-110s: models with one substance and ten lags.
+2. M-205s: models with two substances and five lags.
+3. M-303s: models with three substances and three lags.
 
-### *ADL Model*
-ADL models regress our dependent variable (Confirmed Case) on its own lags and the lags of other independent variables. Specifically, the models have the following form:
+For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). We retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the number of predictors does not exceed 10. The following sections describe details of the best-performing model in each model set.
 
-$Y_t = \alpha_{0} + \sum_{i=1}^{p} \alpha_i  Y_{t-i} + \sum_{k=1}^{n} (\sum_{j=1}^{q} \beta_{k, j} X_{k, t-j}) + \epsilon_t$
+### *M-110s*
 
-In our case then, applying the procedure in the [Model Selection](#model-selection) section, we regress confirmed case at time t on past confirm case, virus, and nicotine. In particular,
+M-110s regress the current Confirmed Case on ten lags of a single predictor variable. Four candidate substances are considered: 1) Virus, 2) Acetaminophen, 3) Desethyl-Hydroxychloroquine, and 4) Nicotine. The Virus model has the lowest WAIC score and has the following form: 
 
-$C_{t} = \alpha_{0} + \sum_{i=1}^{3} \alpha_i  C_{t-i} + \sum_{j=1}^{3} \beta_{V, j} V_{t-j} + \sum_{j=1}^{3} \beta_{N, j} N_{t-j}$.
+> $C_t \sim Binomial(3.3\times 10^5, \space p)$
+> 
+> $logit(p) = \alpha + \sum_{i=1}^{10} \beta_{Vi} V_{t-i}$
+> 
+> $\alpha \sim Normal(-10, \space1)$
+> 
+> $\beta_{Vi} \sim Normal(0.5, \space 0.5)$
 
-The above model gives us the smallest AIC score and past most of the standard diagnosis tests. Error terms are normally distributed and not serially correlated. It appears to have slight heteroscedasticity, but this might be caused by the fact that extreme values are relatively few that we are not able to overcome. As a heap-up, the estimator might be inefficient (which means we could have better prediction due to data quality improvement) and the forecast could be a little volatile at extreme values. Nevertheless, the overall performance of the model should be fine as the estimator is still unbiased.
+[Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model.
 
+### *M-205s*
 
+M-205s regress the current Confirmed Case on five lags of two predictor substances. The model with Virus concentration and Desethyl-Hydroxychloroquine: 
 
-*Stationarity in Time Series:* Typically, a time series grows over time and fluctuate seasonally (e.g., the growth of stock market index). Since those trend and cycle are not what we are interested in generally, stationary or differenced series is used in time series analysis. In our case, however, there is no apparent trend and cycle in our series $C_t$ (this is confirmed by the *decompose* function in R). All we care about is the original pattern of confirmed cases over time. Since differencing effectively remove information from our series, we analyze our series *at level* for the ADL model. 
+> $C_t \sim Binomial(3.3\times 10^5, \space p)$
+> 
+> $logit(p) = \alpha + \sum_{i=1}^{5} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i})$
+> 
+> $\alpha \sim Normal(-10, \space1)$
+> 
+> $\beta_{Vi}, \space \beta_{DHi} \sim Normal(0.5, \space 0.5)$
 
+has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows the out-sample prediction by this model.
 
-### *DL Model*
-DL models are just similar to ADL without the lagged dependent variable. The form for a typical model is
+### *M-303s*
 
-$Y_t = \alpha_{0} + \sum_{k=1}^{n} (\sum_{j=1}^{q} \beta_{k, j} X_{k, t-j}) + \epsilon_t$
+M-303s regress the current Confirmed Case on three substances, each with three lags. The best model uses 1) Virus, 2) Desethyl-Hydroxychloroquine, and 3) Acetaminophen as predictors and has the following form:
 
-and the selected model (see [Model Selection](#model-selection)) we fit is 
+> $C_t \sim Binomial(3.3\times 10^5, \space p)$
+> 
+> $logit(p) = \alpha + \sum_{i=1}^{3} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i} + \beta_{Ai} A_{t-i})$
+> 
+> $\alpha \sim Normal(-10, \space1)$
+> 
+> $\beta_{Vi}, \space \beta_{DHi}, \space \beta_{Ai} \sim Normal(0.5, \space 0.5)$
 
-$C_{t} = \alpha_{0} + \sum_{j=1}^{3} \beta_{V, j} V_{t-j} + \sum_{j=1}^{3} \beta_{DH, j} DH_{t-j}$.
-
-
-*Box-Cox Transformation:* We do a Box-Cox transformation [^1] to reduce the heteroscedasticity. 
-
-*Differencing the Series* Since the model we first fitted suffers from residual autocorrelation and this could result a larger predictive interval (inefficient), we difference the series once.
-
-
-### *VAR Model*
-[VAR AND IRF HERE]
-
-[TO BE ADDED I PROMISE ...]
-
-
-
-
-
-
-
-## Model Selection
-To decide which variables to include into the above models, we use [Akaike information Criterion (AIC)](https://en.wikipedia.org/wiki/Akaike_information_criterion) as our rule of thumb. Two general rules are applied when selecting the models. First, we use consecutive lags. Second, to avoid overfitting, we maintain at least 10 observations for each predictor included in the models. We exhaust all combinations of variables and select the model with the lowest AIC score. For other details, please see file [04_select_model.R](./code/04_select_model.R).
-
-
-## Model Diagnosis
-
-[Stardard tests for autocorrelation, normality, homoskedasticity go here.]
-
-
-## Predictions
-See [prediction_ADL_lag3.pdf](./figures/prediction_ADL_lag3.pdf) and [prediction_DL_lag5.pdf](./figures/prediction_DL_lag5.pdf) for now. 
+[Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model.
 
 
-[EXPLANATION WILL BE ADDED ....]
+## Model Validation
+
+We use an additional dataset to validate our model. The data is collected from January 2022 onward and consists of 39 observations. However, since only confirmed case and virus concentration are recorded, we are only able to validete our first model --- prediction solely by virus concentration.
+
+[Figure 4](./figures/prediction_m110_v10_validate.pdf) shows the result. We use virus concentrations from this new dataset as inputs to predict confirmed cases in the same period. The shaded area in the plot indicates that the model captures the epidemic trend quite well, except around the peak range. The difference between the predicted and actual values around the peak area might be due to measurement errors or other human factors. With further information, it is easier to know the source of this difference. Considering that future new datasets can be used to calibrate the model and the purpose of out-sample prediction, this model should be exemplary for future use.
 
 
 
-[^1]: Box, G. E. P., & Cox, D. R. (1964). An analysis of transformations. *Journal of the Royal Statistical Society. Series B, Statistical Methodology, 26*(2), 211–252.
+## Appendix
+
+### Prior Predictive Simulation
+[OPTIONAL DETAILS; TO BE ADDED IF NEEDED ... ]
