@@ -10,9 +10,11 @@
   - [Cross Correlations](#cross-correlations)
   - [Temporal Trends](#temporal-trends)
 - [Models](#models)
-  - [*One Substance Model*](#one-substance-model)
-- [Prior Predictive Simulation](#prior-predictive-simulation)
-- [Model Selection](#model-selection)
+  - [M-110s](#m-110s)
+  - [M-205s](#m-205s)
+  - [M-303s](#m-303s)
+- [Appendix](#appendix)
+  - [Prior Predictive Simulation](#prior-predictive-simulation)
 
 ---
 
@@ -81,7 +83,7 @@ M-110s regress the current Confirmed Case on ten lags of a single predictor vari
 > 
 > $\beta_{Vi} \sim Normal(0.5, \space 0.5)$
 
-[Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model.
+[Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model. For the choice of priors, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
 
 ### *M-205s*
 
