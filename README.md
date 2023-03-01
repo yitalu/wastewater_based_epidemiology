@@ -20,7 +20,7 @@
 ---
 
 ## Overview
-This project aims to predict COVID-19 confirmed cases in an area with wastewater chemicals from the past few days. Three Bayesian models are built and fitted to data collected in Suffolk County, NY, USA from mid 2020 to the beginning of 2021. The first model uses the concentration of virus gene copies from the past ten days to predict the current number of confirmed case. The second model allows us to make the same prediction by looking at 1) virus concentration and 2) Desethyl-Hydroxychloroquine in the past five days. The third model shortens the need for recording period to three days without losing accuracy too much by adding Acetaminophen as a third predictor. These models can provide public health authorities with additional information and assist their policymaking.
+This project aims to predict COVID-19 confirmed cases in an area by wastewater chemicals from the past few days. Three Bayesian models are built and fitted to data collected in Suffolk County, NY, USA from mid 2020 to the beginning of 2021. The first model uses the concentration of virus gene copies from the past ten days to predict the current number of confirmed case. The second model allows us to make the same prediction by looking at 1) virus concentration and 2) Desethyl-Hydroxychloroquine in the past five days. The third model shortens the recording window to three days without losing accuracy too much by adding Acetaminophen as a third predictor. These models can provide public health authorities with additional information and assist their policymaking.
 
 
 
