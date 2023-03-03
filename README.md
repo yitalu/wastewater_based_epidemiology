@@ -58,7 +58,7 @@ We regress our dependent variable, Confirmed Case at time t ($C_t$), on lags of 
 
 $$C_t \sim Binomial(N, \space p)$$
 
-$$logit(p) = \alpha + \sum_{j=1}^{q} (\sum_{i=1}^{p} \beta_{ji} X_{j, t-i})$$
+$$logit(p) = \alpha + \sum_{j=1}^{n} (\sum_{i=1}^{m} \beta_{ji} X_{j, t-i})$$
 
 $$\alpha \sim Normal(\bar \alpha, \space \sigma_{\alpha})$$
 
