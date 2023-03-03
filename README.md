@@ -1,6 +1,6 @@
 # Wastewater Based Epidemiology
 
-**[LAST UPDATED: 03.01.2023; TO BE EDITED]**
+**[LAST UPDATED: 03.03.2023; TO BE EDITED]**
 
 
 - [Overview](#overview)
@@ -58,17 +58,17 @@ We regress our dependent variable, Confirmed Case at time t ($C_t$), on lags of 
 
 $$C_t \sim Binomial(N, \space p)$$
 
-$$logit(p) = \alpha + \sum_{j=1}^{n} (\sum_{i=1}^{m} \beta_{ji} X_{j, t-i})$$
+$$logit(p) = \alpha + \sum_{i=1}^{m} (\sum_{j=1}^{n} \beta_{ij} X_{i, t-j})$$
 
 $$\alpha \sim Normal(\bar \alpha, \space \sigma_{\alpha})$$
 
-$$\beta_{ji} \sim Normal(\bar \beta_{ji}, \space \sigma_{\beta_{ji}})$$
+$$\beta_{ij} \sim Normal(\bar \beta_{ij}, \space \sigma_{\beta_{ij}})$$
 
 Three specific sets of model are considered:
 
-1. M-110s: models with one substance and ten lags.
-2. M-205s: models with two substances and five lags.
-3. M-303s: models with three substances and three lags.
+1. M-110s: models with one substance and ten lags (m = 1, n = 10).
+2. M-205s: models with two substances and five lags (m = 2, n = 5).
+3. M-303s: models with three substances and three lags (m = 3, n = 3).
 
 For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). We retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the number of predictors does not exceed 10. The following sections describe details of the best-performing model in each model set.
 
@@ -78,11 +78,11 @@ M-110s regress the current Confirmed Case on ten lags of a single predictor vari
 
 $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
 
-$$logit(p) = \alpha + \sum_{i=1}^{10} \beta_{Vi} V_{t-i}$$
+$$logit(p) = \alpha + \sum_{j=1}^{10} \beta_{Vj} V_{t-j}$$
 
 $$\alpha \sim Normal(-10, \space1)$$
 
-$$\beta_{Vi} \sim Normal(0.5, \space 0.5)$$
+$$\beta_{Vj} \sim Normal(0.5, \space 0.5)$$
 
 [Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model.
 
@@ -92,11 +92,11 @@ M-205s regress the current Confirmed Case on five lags of two predictor substanc
 
 $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
 
-$$logit(p) = \alpha + \sum_{i=1}^{5} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i})$$
+$$logit(p) = \alpha + \sum_{j=1}^{5} (\beta_{Vj} V_{t-j} + \beta_{DHj} DH_{t-j})$$
 
 $$\alpha \sim Normal(-10, \space1)$$
 
-$$\beta_{Vi}, \space \beta_{DHi} \sim Normal(0.5, \space 0.5)$$
+$$\beta_{Vj}, \space \beta_{DHj} \sim Normal(0.5, \space 0.5)$$
 
 has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows the out-sample prediction by this model.
 
@@ -106,11 +106,11 @@ M-303s regress the current Confirmed Case on three substances, each with three l
 
 $$C_t \sim Binomial(3.3\times 10^5, \space p)$$
 
-$$logit(p) = \alpha + \sum_{i=1}^{3} (\beta_{Vi} V_{t-i} + \beta_{DHi} DH_{t-i} + \beta_{Ai} A_{t-i})$$
+$$logit(p) = \alpha + \sum_{j=1}^{3} (\beta_{Vj} V_{t-j} + \beta_{DHj} DH_{t-j} + \beta_{Aj} A_{t-j})$$
 
 $$\alpha \sim Normal(-10, \space1)$$
 
-$$\beta_{Vi}, \space \beta_{DHi}, \space \beta_{Ai} \sim Normal(0.5, \space 0.5)$$
+$$\beta_{Vj}, \space \beta_{DHj}, \space \beta_{Aj} \sim Normal(0.5, \space 0.5)$$
 
 [Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model.
 
