@@ -34,17 +34,18 @@ post_sim <- sim(m.a3dh3n3, data = list(A1 = d_lag3$a_lag1, A2 = d_lag3$a_lag2, A
 # Plot Prediction ---------------------------------------------------------
 lag_length <- dim(d)[1] - dim(post_sim)[2]
 
-# plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from the Past 10 Days")
-# plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus and Desethyl-Hydroxychloroquine from the Past 5 Days")
-plot(NULL, xlim = c(0, 111-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction by Virus, \n Desethyl-Hydroxychloroquine, and Acetaminophen from the Past 3 Days")
+# plot(NULL, xlim = c(0, 111), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from the Past 10 Days")
+# plot(NULL, xlim = c(0, 111), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus and Desethyl-Hydroxychloroquine from the Past 5 Days")
+plot(NULL, xlim = c(0, 111), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction by Virus, \n Desethyl-Hydroxychloroquine, and Acetaminophen from the Past 3 Days")
 for (i in 1:50) {
-  lines(1:(111-lag_length), post_sim[i, ], lty = 1, col = 2, lwd = 1)
+  # lines(1:(111-lag_length), post_sim[i, ], lty = 1, col = 2, lwd = 1)
+  lines((lag_length+1):111, post_sim[i, ], lty = 1, col = 2, lwd = 1)
 }
-lines(d$confirmed_cases[(lag_length+1):111], col = 4, lwd = 2)
+lines((lag_length+1):111, d$confirmed_cases[(lag_length+1):111], col = 4, lwd = 2)
 grid()
 PI_sim <- apply(post_sim, 2, function(x) PI(x, prob = 0.95))
-lines(PI_sim[1, ], lty = 2, lwd = 1.5)
-lines(PI_sim[2, ], lty = 2, lwd = 1.5)
+lines((lag_length+1):111, PI_sim[1, ], lty = 2, lwd = 1.5)
+lines((lag_length+1):111, PI_sim[2, ], lty = 2, lwd = 1.5)
 
 # legend(0, 1000, legend = c("Predicted Case (Model)", "Confirmed Case (Data)", "95% Confidence Interval"), fill=c(2, 4, 1))
 # legend(0, 1000, legend = c("Predicted Case (Model)", "Confirmed Case (Data)", "95% Confidence Interval"), col=c(2, 4, 1), lty=c(1, 1, 3), cex=0.8)

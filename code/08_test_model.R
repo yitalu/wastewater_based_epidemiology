@@ -67,21 +67,23 @@ post_sim <- sim(m.v10, data = list(V1 = d_test_lag10$v_lag1, V2 = d_test_lag10$v
 # Plot Prediction ---------------------------------------------------------
 lag_length <- dim(d_test)[1] - dim(post_sim)[2]
 
-plot(NULL, xlim = c(0, 150-lag_length), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from the Past 10 Days")
+plot(NULL, xlim = c(0, 150), ylim = c(0, 1000), xlab = "Day", ylab = "Confirmed Case", main = "COVID-19 Confirmed Case Prediction \n by Virus Gene Copies from the Past 10 Days", xaxt = 'n')
+axis(1, at = seq(0, 150, by = 20))
+rect(xleft = 111, xright = 150, ybottom = par("usr")[3], ytop = par("usr")[4], border = NA, col = adjustcolor("#6BD7AF", alpha = 0.3))
 
-rect(xleft = 101, xright = 150, ybottom = par("usr")[3], ytop = par("usr")[4], border = NA, col = adjustcolor("#6BD7AF", alpha = 0.3))
+x_ticks <- axis(1, seq(0, 150, by = 20), labels = FALSE)
+y_ticks <- axis(2, seq(0, 1000, by = 200), labels = FALSE)
+abline(v = x_ticks, h = y_ticks, lwd = 1, lty = 3, col = "lightgray")
 
 for (i in 1:50) {
-  lines(1:(150-lag_length), post_sim[i, ], lty = 1, col = 2, lwd = 1)
+  lines((lag_length+1):150, post_sim[i, ], lty = 1, col = 2, lwd = 1)
 }
-lines(d_test$confirmed_cases[(lag_length+1):150], col = 4, lwd = 2)
-grid()
+lines((lag_length+1):150, d_test$confirmed_cases[(lag_length+1):150], col = 4, lwd = 2)
 PI_sim <- apply(post_sim, 2, function(x) PI(x, prob = 0.95))
-lines(PI_sim[1, ], lty = 2, lwd = 1.5)
-lines(PI_sim[2, ], lty = 2, lwd = 1.5)
+lines((lag_length+1):150, PI_sim[1, ], lty = 2, lwd = 1.5)
+lines((lag_length+1):150, PI_sim[2, ], lty = 2, lwd = 1.5)
 
 # legend(0, 1000, legend = c("Predicted Case (Model)", "Confirmed Case (Data)", "95% Confidence Interval"), fill=c(2, 4, 1))
 legend("topleft", inset = 0.02, legend = c("Predicted Case (Model)", "Confirmed Case (Data)", "95% Confidence Interval"), col=c(2, 4, 1), lty=c(1, 1, 2), lwd = c(2, 2, 2), cex=1)
-
-text(40, 600, "Model is trained by data from this unshaded area.")
-text(127, 600, "Model predicts \n confirm case.")
+text(45, 600, "Model is trained by data from this unshaded area.")
+text(133, 600, "Model predicts \n confirm case.")
