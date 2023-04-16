@@ -129,10 +129,34 @@ We use an additional dataset to validate our model. The data is collected from J
 
 ## Appendix
 
-### Posterior Intervals
-### MCMC diagnostics
-
 ### Prior Predictive Simulation
-[OPTIONAL DETAILS; TO BE ADDED IF NEEDED ... ]
+Common priors are applied to all parameters to regularize our estimate. The choice of priors is based on their resulted confirmed case distributions. For a specific set of priors, we calculate its infection probabilities (by taking the inverse logit of the linear combination of parameters) and the simulated confirmed cases (via a binomial process) under different distributions of virus concentration. Refer to [05_simulate_priors.R](./code/05_simulate_priors.R) for how this is performed in R. As a result, the following set of priors is chosen:
+$$\alpha \sim Normal(-10, \space1)$$
 
-### Trace and Rank plots 
+$$\beta_{Xj} \sim Normal(0.5, \space 0.5)$$
+
+
+Here, we show how infection probabilities and confirmed cases are distributed under three cases of virus distributions.
+
+*Case 1*: virus concentration distributed uniformly.
+
+
+*Case 2*: virus concentration at the maximum.
+
+*Case 3*: virus concentration at the minimum.
+
+
+
+### Posterior Intervals
+PI plot
+pairs plot
+
+
+
+
+### MCMC Diagnostics
+
+R-hat and Effective sample size
+Trace plots
+Rank plots
+

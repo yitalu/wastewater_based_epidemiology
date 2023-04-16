@@ -4,7 +4,8 @@ source(file = "./code/04_lag_variables.R")
 
 
 
-# One Predictor, Lag 10 ---------------------------------------------------
+
+# M-110s: one predictor, ten lags -----------------------------------------
 
 # . virus -----------------------------------------------------------------
 dat <- list(C = d_lag10$c, V1 = d_lag10$v_lag1, V2 = d_lag10$v_lag2, V3 = d_lag10$v_lag3, V4 = d_lag10$v_lag4, V5 = d_lag10$v_lag5, V6 = d_lag10$v_lag6, V7 = d_lag10$v_lag7, V8 = d_lag10$v_lag8, V9 = d_lag10$v_lag9, V10 = d_lag10$v_lag10)
@@ -25,14 +26,6 @@ m.v10 <- ulam(
     bV10 ~ dnorm(0.5, 0.5)
   ), data = dat, chains = 4, cores = 4, log_lik=TRUE
 )
-
-precis(m.v10)
-result <- precis(m.v10, prob=0.95)
-summary(m.v10)
-plot(m.v10, main = "Posterior Intervals ()")
-
-show(m.v10)
-lppd(m.v10) # deviance
 
 
 
@@ -56,7 +49,6 @@ m.a10 <- ulam(
     bA10 ~ dnorm(0.5, 0.5)
   ), data = dat, chains = 4, cores = 4, log_lik=TRUE
 )
-
 
 
 
@@ -113,7 +105,8 @@ compare(m.v10, m.a10, m.dh10, m.n10, func = PSIS)
 
 
 
-# Two Predictors, Lag 5 ---------------------------------------------------
+# M-205s: two predictors, five lags ---------------------------------------
+
 # . v + a ----
 dat <- list(C = d_lag5$c, V1 = d_lag5$v_lag1, V2 = d_lag5$v_lag2, V3 = d_lag5$v_lag3, V4 = d_lag5$v_lag4, V5 = d_lag5$v_lag5, A1 = d_lag5$a_lag1, A2 = d_lag5$a_lag2, A3 = d_lag5$a_lag3, A4 = d_lag5$a_lag4, A5 = d_lag5$a_lag5)
 m.v5a5 <- ulam(
@@ -188,8 +181,7 @@ compare(m.v5a5, m.v5dh5, m.v5n5, func = PSIS)
 
 
 
-
-# Three Predictors, Lag 3 -------------------------------------------------
+# M-303s: three predictors, three lags ------------------------------------
 
 # Three predictors: v, n, dh
 dat <- list(C = d_lag3$c, V1 = d_lag3$v_lag1, V2 = d_lag3$v_lag2, V3 = d_lag3$v_lag3, A1 = d_lag3$a_lag1, A2 = d_lag3$a_lag2, A3 = d_lag3$a_lag3, DH1 = d_lag3$dh_lag1, DH2 = d_lag3$dh_lag2, DH3 = d_lag3$dh_lag3, N1 = d_lag3$n_lag1, N2 = d_lag3$n_lag2, N3 = d_lag3$n_lag3)
