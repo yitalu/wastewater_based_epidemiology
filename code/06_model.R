@@ -28,6 +28,11 @@ m.v10 <- ulam(
 
 precis(m.v10)
 WAIC(m.v10)
+plot(m.v10)
+show(m.v10)
+traceplot(m.v10)
+trankplot(m.v10)
+lppd(m.v10) # deviance
 
 
 

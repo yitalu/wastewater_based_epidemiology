@@ -117,6 +117,8 @@ $$\beta_{Vj}, \space \beta_{DHj}, \space \beta_{Aj} \sim Normal(0.5, \space 0.5)
 For the choice of priors in above models, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
 
 
+
+
 ## Model Validation
 
 We use an additional dataset to validate our model. The data is collected from January 2022 onward and consists of 39 observations. However, since only confirmed case and virus concentration were recorded, we are only able to validete our first model --- prediction solely by virus concentration.
