@@ -1,3 +1,7 @@
+# This script simulates posterior predictions from the models
+
+
+
 
 # One Predictor, Lag 10 ---------------------------------------------------
 post_sim <- sim(m.v10, data = list(V1 = d_lag10$v_lag1, V2 = d_lag10$v_lag2, V3 = d_lag10$v_lag3, V4 = d_lag10$v_lag4, V5 = d_lag10$v_lag5, V6 = d_lag10$v_lag6, V7 = d_lag10$v_lag7, V8 = d_lag10$v_lag8, V9 = d_lag10$v_lag9, V10 = d_lag10$v_lag10), n = 1e4)

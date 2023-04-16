@@ -129,5 +129,10 @@ We use an additional dataset to validate our model. The data is collected from J
 
 ## Appendix
 
+### Posterior Intervals
+### MCMC diagnostics
+
 ### Prior Predictive Simulation
 [OPTIONAL DETAILS; TO BE ADDED IF NEEDED ... ]
+
+### Trace and Rank plots 
