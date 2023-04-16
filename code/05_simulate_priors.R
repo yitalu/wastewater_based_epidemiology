@@ -30,7 +30,7 @@ bV10 <- rnorm(N, mean_b, sigma_b)
 # Simulate Confirmed cases ------------------------------------------------
 
 # Distribution of virus concentration
-v_sim <- runif(N, 0, 0)
+v_sim <- runif(N, 1, 1)
 
 
 # Infection probabilities

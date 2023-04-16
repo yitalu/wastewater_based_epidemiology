@@ -7,6 +7,12 @@
 
 # Rhat and n_eff
 precis(m.v10, prob=0.95)
+df <- as.data.frame(precis(m.v10, prob=0.95))
+
+rownames(df) <- c("a", "bV1", "bV2", "bV3", "bV4", "bV5", "bV6", "bV7", "bV8", "bV9", "bV10")
+colnames(df) <- c('mean', 'sd', '2.5%', '97.5%', 'n_eff', 'Rhat4')
+
+kable(df, format = "markdown")
 
 # Trace plot
 pdf("./figures/trace_plot_m110_v10.pdf", width = 9, height = 6)
