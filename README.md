@@ -161,6 +161,8 @@ Distribution of Confirmed Case
 
 ***Case 2*: virus concentration at the maximum**
 
+$$V \sim Uniform(1, \space 1)$$
+
 Distribution of Infection Probability
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
 |-----------|-----------|-----------|-----------|-----------|-----------|
@@ -177,6 +179,8 @@ Distribution of Confirmed Case
 
 
 ***Case 3*: virus concentration at the minimum**
+
+$$V \sim Uniform(0, \space 0)$$
 
 Distribution of Infection Probability
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
