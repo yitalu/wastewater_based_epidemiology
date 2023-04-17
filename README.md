@@ -144,57 +144,50 @@ Here, we show how infection probability and confirmed case are distributed under
 
 $$V \sim Uniform(0, \space 1)$$
 
-Distribution of Infection Probability
+Distribution of Infection Probability ([Density Plot](./figures/prior_prediction_prob_uniform.pdf))
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
 |-----------|-----------|-----------|-----------|-----------|-----------|
 | 0.0000016 | 0.0001322 | 0.0004810 | 0.0048370 | 0.0021727 | 0.4947711 |
 
-[Density Plot](./figures/prior_prediction_prob_uniform.pdf)
-
-Distribution of Confirmed Case
+Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_uniform.pdf))
 | Min. | 1st. Qu. | Median | Mean | 3rd Qu. | Max.   |
 |------|----------|--------|------|---------|--------|
 | 0    | 44       | 158    | 1596 | 715     | 163123 |
 
-[Density Plot](./figures/prior_prediction_case_uniform.pdf)
 
 
 ***Case 2*: virus concentration at the maximum**
 
 $$V \sim Uniform(1, \space 1)$$
 
-Distribution of Infection Probability
+Distribution of Infection Probability ([Density Plot](./figures/prior_prediction_prob_max.pdf))
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
 |-----------|-----------|-----------|-----------|-----------|-----------|
 | 0.0000094 | 0.0019102 | 0.0067741 | 0.0264734 | 0.0227059 | 0.8991982 |
 
-[Density Plot](./figures/prior_prediction_prob_max.pdf)
 
-Distribution of Confirmed Case
+Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_max.pdf))
 | Min. | 1st. Qu. | Median | Mean | 3rd Qu. | Max.   |
 |------|----------|--------|------|---------|--------|
 | 2    | 627      | 2240   | 8736 | 7501    | 296497 |
 
-[Density Plot](./figures/prior_prediction_case_max.pdf)
 
 
 ***Case 3*: virus concentration at the minimum**
 
 $$V \sim Uniform(0, \space 0)$$
 
-Distribution of Infection Probability
+Distribution of Infection Probability ([Density Plot](./figures/prior_prediction_prob_min.pdf))
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
 |-----------|-----------|-----------|-----------|-----------|-----------|
 | 9.011e-07 | 2.306e-05 | 4.538e-05 | 7.407e-05 | 8.776e-05 | 1.576e-03 |
 
-[Density Plot](./figures/prior_prediction_prob_min.pdf)
 
-Distribution of Confirmed Case
+Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_min.pdf))
 | Min. | 1st. Qu. | Median | Mean  | 3rd Qu. | Max.   |
 |------|----------|--------|-------|---------|--------|
 | 0.00 | 7.00     | 15.00  | 24.52 | 30.00   | 542.00 |
 
-[Density Plot](./figures/prior_prediction_case_min.pdf)
 
 
 ### MCMC Diagnostics
