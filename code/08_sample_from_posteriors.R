@@ -3,20 +3,32 @@ par(mfrow = c(1, 1))
 
 
 # M-110s: one predictor, ten lags -----------------------------------------
+pdf("./figures/posterior_distributions_m110_v10.pdf", width = 12, height = 12)
 pairs(m.v10)
-plot(precis(m.v10, prob=0.95), main = "Posterior Intervals (M-110s: Virus)")
+dev.off()
 
+pdf("./figures/posterior_intervals_m110_v10.pdf", width = 9, height = 6)
+plot(precis(m.v10, prob=0.95), main = "Posterior Intervals (M-110s: Virus)")
+dev.off()
 
 
 
 # M-205s: two predictors, five lags ---------------------------------------
+pdf("./figures/posterior_distributions_m205_v5dh5.pdf", width = 12, height = 12)
 pairs(m.v5dh5)
-plot(precis(m.v5dh5, prob=0.95), main = "Posterior Intervals (M-205s: Virus, DHCQ)")
+dev.off()
 
+pdf("./figures/posterior_intervals_m205_v5dh5.pdf", width = 9, height = 6)
+plot(precis(m.v5dh5, prob=0.95), main = "Posterior Intervals (M-205s: Virus, DHCQ)")
+dev.off()
 
 
 
 # M-303s: three predictors, three lags ------------------------------------
+pdf("./figures/posterior_distributions_m303_v3a3dh3.pdf", width = 12, height = 12)
 pairs(m.v3a3dh3)
-plot(precis(m.v3a3dh3, prob=0.95), main = "Posterior Intervals (M-303s: Virus, Acetaminophen, DHCQ)")
+dev.off()
 
+pdf("./figures/posterior_intervals_m303_v3a3dh3.pdf", width = 9, height = 6)
+plot(precis(m.v3a3dh3, prob=0.95), main = "Posterior Intervals (M-303s: Virus, Acetaminophen, DHCQ)")
+dev.off()

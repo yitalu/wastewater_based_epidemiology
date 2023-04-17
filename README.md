@@ -154,7 +154,7 @@ Here, we show how infection probabilities and confirmed cases are distributed un
 
 ### MCMC Diagnostics
 
-R-hat and Effective sample size
+ and Effective sample size
 
 #### M-110s: Virus
 [Trace plot](./figures/trace_plot_m110_v10.pdf)
@@ -175,6 +175,21 @@ R-hat and Effective sample size
 [Rank plot](./figures/rank_plot_m303_v3a3dh3.pdf)
 
 
-### Posterior Intervals
-PI plot
-pairs plot
+### Posterior Distributions and Coefficient Intervals
+
+#### M-110s: Virus
+[Distributions](./figures/posterior_distributions_m110_v10.pdf)
+
+[Coefficient Intervals](./figures/posterior_intervals_m110_v10.pdf)
+
+
+#### M-205s: Virus, DHCQ
+[Distributions](./figures/posterior_distributions_m205_v5dh5.pdf)
+
+[Coefficient Intervals](./figures/posterior_intervals_m205_v5dh5.pdf)
+
+
+#### M-303s: Virus, Acetaminophen, DHCQ
+[Distributions](./figures/posterior_distributions_m303_v3a3dh3.pdf)
+
+[Coefficient Intervals](./figures/posterior_intervals_m303_v3a3dh3.pdf)
