@@ -140,6 +140,9 @@ $$\beta_{Xj} \sim Normal(0.5, \space 0.5)$$
 
 Here, we show how infection probabilities and confirmed cases are distributed under three cases of virus distributions.
 
+
+[TO BE CONTINUED BELOW]
+
 *Case 1*: virus concentration distributed uniformly.
 
 *Case 2*: virus concentration at the maximum.
