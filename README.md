@@ -147,9 +147,7 @@ Here, we show how infection probabilities and confirmed cases are distributed un
 
 
 
-### Posterior Intervals
-PI plot
-pairs plot
+
 
 
 
@@ -175,3 +173,8 @@ R-hat and Effective sample size
 [Trace plot](./figures/trace_plot_m303_v3a3dh3.pdf)
 
 [Rank plot](./figures/rank_plot_m303_v3a3dh3.pdf)
+
+
+### Posterior Intervals
+PI plot
+pairs plot
