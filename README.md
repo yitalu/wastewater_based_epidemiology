@@ -143,7 +143,7 @@ Here, we show how infection probabilities and confirmed cases are distributed un
 
 [TO BE CONTINUED BELOW]
 
-*Case 1*: virus concentration distributed uniform.
+***Case 1*: virus concentration distributed uniform**
 
 Distribution of Infection Probability
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
@@ -160,7 +160,7 @@ Distribution of Confirmed Case
 [Density Plot](./figures/prior_prediction_case_uniform.pdf)
 
 
-*Case 2*: virus concentration at the maximum.
+***Case 2*: virus concentration at the maximum**
 
 Distribution of Infection Probability
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
@@ -177,7 +177,7 @@ Distribution of Confirmed Case
 [Density Plot](./figures/prior_prediction_case_max.pdf)
 
 
-*Case 3*: virus concentration at the minimum.
+***Case 3*: virus concentration at the minimum**
 
 Distribution of Infection Probability
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
