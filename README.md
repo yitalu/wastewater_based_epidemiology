@@ -140,6 +140,8 @@ $$\beta_{Xj} \sim Normal(0.5, \space 0.5)$$
 
 Here, we show how infection probability and confirmed case are distributed under three cases of virus distributions.
 
+</br>
+
 ***Case 1*: virus concentration distributed uniform**
 
 $$V \sim Uniform(0, \space 1)$$
@@ -191,6 +193,8 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 | 0.00 | 7.00     | 15.00  | 24.52 | 30.00   | 542.00 |
 
 
+</br>
+</br>
 
 ### MCMC Diagnostics
 
@@ -219,6 +223,8 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 [Rank plot](./figures/rank_plot_m303_v3a3dh3.pdf)
 
+</br>
+</br>
 
 ### Posterior Distributions and Coefficient Intervals
 
