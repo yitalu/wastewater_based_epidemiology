@@ -157,7 +157,7 @@ Here, we show how infection probabilities and confirmed cases are distributed un
 R-hat and Effective sample size
 
 #### M-110s: Virus
-[R-hat and Effective sample size]
+[R-hat and Effective sample size](./tables/coefficients_m110_v10.csv)
 
 [Trace plot](./figures/trace_plot_m110_v10.pdf)
 
