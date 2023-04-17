@@ -16,6 +16,8 @@
 - [Model Validation](#model-validation)
 - [Appendix](#appendix)
   - [Prior Predictive Simulation](#prior-predictive-simulation)
+  - [MCMC Diagnostics](#mcmc-diagnostics)
+  - [Posterior Distributions and Coefficient Intervals](#posterior-distributions-and-coefficient-intervals)
 
 ---
 
