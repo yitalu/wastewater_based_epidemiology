@@ -138,12 +138,11 @@ $$\alpha \sim Normal(-10, \space1)$$
 $$\beta_{Xj} \sim Normal(0.5, \space 0.5)$$
 
 
-Here, we show how infection probabilities and confirmed cases are distributed under three cases of virus distributions.
-
-
-[TO BE CONTINUED BELOW]
+Here, we show how infection probability and confirmed case are distributed under three cases of virus distributions.
 
 ***Case 1*: virus concentration distributed uniform**
+
+$$V \sim Uniform(0, \space 1)$$
 
 Distribution of Infection Probability
 | Min.      | 1st. Qu.  | Median    | Mean      | 3rd Qu.   | Max.      |
