@@ -154,10 +154,9 @@ Here, we show how infection probabilities and confirmed cases are distributed un
 
 ### MCMC Diagnostics
 
-R-hat and Effective sample size
 
 #### M-110s: Virus
-[R-hat and Effective sample size](./tables/coefficients_m110_v10.csv)
+[R-hat and effective sample size](./tables/coefficients_m110_v10.csv)
 
 [Trace plot](./figures/trace_plot_m110_v10.pdf)
 
@@ -166,14 +165,15 @@ R-hat and Effective sample size
 
 
 #### M-205s: Virus, DHCQ
-[R-hat and Effective sample size]
+[R-hat and effective sample size](./tables/coefficients_m205_v5dh5.csv)
+
 [Trace plot](./figures/trace_plot_m205_v5dh5.pdf)
 
 [Rank plot](./figures/rank_plot_m205_v5dh5.pdf)
 
 
 #### M-303s: Virus, Acetaminophen, DHCQ
-[R-hat and Effective sample size]
+[R-hat and effective sample size](./tables/coefficients_m303_v3a3dh3.csv)
 
 [Trace plot](./figures/trace_plot_m303_v3a3dh3.pdf)
 

@@ -18,6 +18,7 @@ pdf("./figures/trace_plot_m110_v10.pdf", width = 9, height = 6)
 traceplot(m.v10, pars = c("a", "bV1", "bV2", "bV3", "bV4", "bV5", "bV6", "bV7", "bV8", "bV9", "bV10"))
 dev.off()
 
+
 # Rank plot
 pdf("./figures/rank_plot_m110_v10.pdf", width = 9, height = 6)
 trankplot(m.v10, pars = c("a", "bV1", "bV2", "bV3", "bV4", "bV5", "bV6", "bV7", "bV8", "bV9", "bV10"))
@@ -29,11 +30,17 @@ dev.off()
 
 # Rhat and n_eff
 precis(m.v5dh5, prob=0.95)
+df <- as.data.frame(precis(m.v5dh5, prob=0.95))
+rownames(df) <- c("a", "bV1", "bV2", "bV3", "bV4", "bV5", "bDH1", "bDH2", "bDH3", "bDH4", "bDH5")
+colnames(df) <- c('mean', 'sd', '2.5%', '97.5%', 'n_eff', 'Rhat4')
+write.csv(df, file = "./tables/coefficients_m205_v5dh5.csv")
+
 
 # Trace plot
 pdf("./figures/trace_plot_m205_v5dh5.pdf", width = 9, height = 6)
 traceplot(m.v5dh5, pars = c("a", "bV1", "bV2", "bV3", "bV4", "bV5", "bDH1", "bDH2", "bDH3", "bDH4", "bDH5"))
 dev.off()
+
 
 # Rank plot
 pdf("./figures/rank_plot_m205_v5dh5.pdf", width = 9, height = 6)
@@ -47,11 +54,17 @@ dev.off()
 
 # Rhat and n_eff
 precis(m.v3a3dh3, prob=0.95)
+df <- as.data.frame(precis(m.v3a3dh3, prob=0.95))
+rownames(df) <- c("a", "bV1", "bV2", "bV3", "bA1", "bA2", "bA3", "bDH1", "bDH2", "bDH3")
+colnames(df) <- c('mean', 'sd', '2.5%', '97.5%', 'n_eff', 'Rhat4')
+write.csv(df, file = "./tables/coefficients_m303_v3a3dh3.csv")
+
 
 # Trace plot
 pdf("./figures/trace_plot_m303_v3a3dh3.pdf", width = 9, height = 6)
 traceplot(m.v3a3dh3, pars = c("a", "bV1", "bV2", "bV3", "bA1", "bA2", "bA3", "bDH1", "bDH2", "bDH3"))
 dev.off()
+
 
 # Rank plot
 pdf("./figures/rank_plot_m303_v3a3dh3.pdf", width = 9, height = 6)
