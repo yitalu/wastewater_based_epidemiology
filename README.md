@@ -154,7 +154,8 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_u
 |------|----------|--------|------|---------|--------|
 | 0    | 44       | 158    | 1596 | 715     | 163123 |
 
-
+</br>
+</br>
 
 ***Case 2*: virus concentration at the maximum**
 
@@ -171,7 +172,8 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 |------|----------|--------|------|---------|--------|
 | 2    | 627      | 2240   | 8736 | 7501    | 296497 |
 
-
+</br>
+</br>
 
 ***Case 3*: virus concentration at the minimum**
 
