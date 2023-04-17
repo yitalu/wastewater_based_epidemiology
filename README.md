@@ -15,7 +15,7 @@
   - [M-303s](#m-303s)
 - [Model Validation](#model-validation)
 - [Appendix](#appendix)
-  - [Prior Predictive Simulation](#prior-predictive-simulation)
+  - [Prior Predictive Simulations](#prior-predictive-simulations)
   - [MCMC Diagnostics](#mcmc-diagnostics)
   - [Posterior Distributions and Coefficient Intervals](#posterior-distributions-and-coefficient-intervals)
 
