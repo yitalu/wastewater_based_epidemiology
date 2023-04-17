@@ -131,7 +131,7 @@ We use an additional dataset to validate our model. The data is collected from J
 
 ## Appendix
 
-### Prior Predictive Simulation
+### Prior Predictive Simulations
 Common priors are applied to all parameters to regularize our estimate. The choice of priors is based on their resulted confirmed case distributions. For a specific set of priors, we calculate its infection probabilities (by taking the inverse logit of the linear combination of parameters) and the simulated confirmed cases (via a binomial process) under different distributions of virus concentration. Refer to [05_simulate_priors.R](./code/05_simulate_priors.R) for how this is performed in R. As a result, the following set of priors is chosen:
 $$\alpha \sim Normal(-10, \space1)$$
 
