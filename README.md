@@ -73,9 +73,9 @@ Three specific sets of model are considered:
 2. M-205s: models with two substances and five lags (m = 2, n = 5).
 3. M-303s: models with three substances and three lags (m = 3, n = 3).
 
-For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). The posterior distributions of the parameters are estimated using Markov chain Monte Carlo (MCMC). In general, the convergence of the MCMC appears healthly based on the [diagnostics details](#mcmc-diagnostics), including potential scale reduction factor (PSRF), effective sample size (ESS), trace plots, and trace rank plots, in the [Appendix](#appendix).
+For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). The posterior distributions of the parameters are estimated using Markov chain Monte Carlo (MCMC), and we retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. In general, the convergence of the MCMC appears healthly based on the [diagnostics details](#mcmc-diagnostics), including potential scale reduction factor (PSRF), effective sample size (ESS), trace plots, and trace rank plots, in the [Appendix](#appendix).
 
-We retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the number of predictors does not exceed 10. The following sections describe details of the best-performing model in each model set.
+Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the numbers of predictors do not exceed 10. The following sections describe details of the best-performing model in each model set. For the choice of priors, please refer to the [Prior Predictive Simulations](#prior-predictive-simulations) section. The posterior distributions of parameters and their 95% intervals can be found in [Posterior Distributions and Coefficient Intervals](#posterior-distributions-and-coefficient-intervals).
 
 ### M-110s
 
@@ -89,7 +89,7 @@ $$\alpha \sim Normal(-10, \space1)$$
 
 $$\beta_{Vj} \sim Normal(0.5, \space 0.5)$$
 
-[Figure 1](./figures/prediction_m110_v10.pdf) shows the out-sample prediction by this model.
+[Figure 1](./figures/prediction_m110_v10.pdf) shows the posterior prediction by this model.
 
 ### M-205s
 
@@ -103,7 +103,7 @@ $$\alpha \sim Normal(-10, \space1)$$
 
 $$\beta_{Vj}, \space \beta_{DHj} \sim Normal(0.5, \space 0.5)$$
 
-has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows the out-sample prediction by this model.
+has the best performance. [Figure 2](./figures/prediction_m205_v5dh5.pdf) shows the posterior prediction by this model.
 
 ### M-303s
 
@@ -117,9 +117,7 @@ $$\alpha \sim Normal(-10, \space1)$$
 
 $$\beta_{Vj}, \space \beta_{DHj}, \space \beta_{Aj} \sim Normal(0.5, \space 0.5)$$
 
-[Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model.
-
-For the choice of priors in above models, please refer to the [Prior Predictive Simulations](#prior-predictive-simulations) section. 
+[Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the posterior prediction of this model.
 
 </br>
 
