@@ -20,17 +20,18 @@
   - [Posterior Distributions and Coefficient Intervals](#posterior-distributions-and-coefficient-intervals)
 
 ---
+</br>
 
 ## Overview
 This project aims to predict COVID-19 confirmed cases in an area by wastewater chemicals from the past few days. Three Bayesian models are built and fitted to data collected in Suffolk County, NY, USA from mid 2020 to the beginning of 2021. The first model uses the concentration of virus gene copies from the past ten days to predict the current number of confirmed case. The second model allows us to make the same prediction by looking at 1) virus concentration and 2) Desethyl-Hydroxychloroquine in the past five days. The third model shortens the recording window to three days without losing accuracy too much by adding Acetaminophen as a third predictor. These models can provide public health authorities with additional information and assist their policymaking.
 
-
+</br>
 
 
 ## Data Preprocessing
 Except for the variable Confirmed Case, all other variables are adjusted in the following ways for the ease of modeling or interpretation. First, virus concentration is log-transformed with base 10. Rather than standardizing, all predictor variables suggested by the correlation plots and prior knowledge (see [Data Exploration](#data-exploration)) are divided by their maximum value in the sample and rescaled into values between 0 and 1. This way, we retain zero as a reference point while being able to make sense of the priors across variables in our modeling. See the script [01_load_data.R](./code/01_load_data.R) for details.
 
-
+</br>
 
 
 ## Data Exploration
@@ -52,7 +53,7 @@ We also look at cross-correlations between Confirmed Cases and (1) Virus Concent
 ### Temporal Trends
 For time series plots of these variables, see [03_plot_time_series.R](./code/03_plot_time_series.R) and figure [trend.pdf](./figures/trend.pdf) as an example. Variables such as Virus and Desethyl-Hydroxychloroquine show similar trends as our outcome variable, Confirmed Case, and are chosen as predictors in our models.
 
-
+</br>
 
 
 ## Models
@@ -72,7 +73,9 @@ Three specific sets of model are considered:
 2. M-205s: models with two substances and five lags (m = 2, n = 5).
 3. M-303s: models with three substances and three lags (m = 3, n = 3).
 
-For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). We retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the number of predictors does not exceed 10. The following sections describe details of the best-performing model in each model set.
+For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). The posterior distributions of the parameters are estimated using Markov chain Monte Carlo (MCMC). In general, the convergence of the MCMC appears healthly based on the [diagnostics details](#mcmc-diagnostics), including potential scale reduction factor (PSRF), effective sample size (ESS), trace plots, and trace rank plots, in the [Appendix](#appendix).
+
+We retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the number of predictors does not exceed 10. The following sections describe details of the best-performing model in each model set.
 
 ### M-110s
 
@@ -116,9 +119,9 @@ $$\beta_{Vj}, \space \beta_{DHj}, \space \beta_{Aj} \sim Normal(0.5, \space 0.5)
 
 [Figure 3](./figures/prediction_m303_v3dh3a3.pdf) shows the out-sample prediction of this model.
 
-For the choice of priors in above models, please refer to the [Prior Predictive Simulation](#prior-predictive-simulation) section. 
+For the choice of priors in above models, please refer to the [Prior Predictive Simulations](#prior-predictive-simulations) section. 
 
-
+</br>
 
 
 ## Model Validation
@@ -127,6 +130,7 @@ We use an additional dataset to validate our model. The data is collected from J
 
 [Figure 4](./figures/prediction_m110_v10_validate.pdf) shows the result. We use virus concentrations from this new dataset as inputs to predict confirmed cases in the same period. The shaded area in the graph indicates that the model captures the epidemic trend quite well, except around the peak range. The difference between the predicted and actual values around the peak area might be due to measurement errors or other human factors. Without further information, it is not easy to identify the source of this difference. Nonetheless, considering the model can be calibrated by new datasets and its purpose for out-sample prediction, it should be exemplary for future use.
 
+</br>
 
 
 ## Appendix
