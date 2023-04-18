@@ -202,7 +202,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 
 #### M-110s: Virus
-[$\hat{R}$ and effective sample size](./tables/coefficients_m110_v10.csv)
+[$\hat{R}$ and ESS](./tables/coefficients_m110_v10.csv)
 
 [Trace plot](./figures/trace_plot_m110_v10.pdf)
 
@@ -211,7 +211,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 
 #### M-205s: Virus, DHCQ
-[$\hat{R}$ and effective sample size](./tables/coefficients_m205_v5dh5.csv)
+[$\hat{R}$ and ESS](./tables/coefficients_m205_v5dh5.csv)
 
 [Trace plot](./figures/trace_plot_m205_v5dh5.pdf)
 
@@ -219,7 +219,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 
 #### M-303s: Virus, Acetaminophen, DHCQ
-[$\hat{R}$ and effective sample size](./tables/coefficients_m303_v3a3dh3.csv)
+[$\hat{R}$ and ESS](./tables/coefficients_m303_v3a3dh3.csv)
 
 [Trace plot](./figures/trace_plot_m303_v3a3dh3.pdf)
 
