@@ -202,7 +202,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 
 #### M-110s: Virus
-[$\hat{R}$ and ESS](./tables/coefficients_m110_v10.csv)
+[$\^{R}$ and ESS](./tables/coefficients_m110_v10.csv)
 
 [Trace plot](./figures/trace_plot_m110_v10.pdf)
 
