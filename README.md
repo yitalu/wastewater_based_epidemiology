@@ -199,7 +199,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 </br>
 
 ### MCMC Diagnostics
-
+Several criteria are used to gauge the sampling quality of the MCMC algorithm. Generally, for accurate inference, we look for three qualities of our Markov chain: (1) convergence, (2) stationary, and (3) good mixing. 
 
 #### M-110s: Virus
 [R-hat and ESS](./tables/coefficients_m110_v10.csv)
