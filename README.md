@@ -73,7 +73,7 @@ Three specific sets of model are considered:
 2. M-205s: models with two substances and five lags (m = 2, n = 5).
 3. M-303s: models with three substances and three lags (m = 3, n = 3).
 
-For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). The posterior distributions of the parameters are estimated using Markov chain Monte Carlo (MCMC), and we retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. In general, the convergence of the MCMC appears healthly based on the [diagnostic details](#mcmc-diagnostics), including potential scale reduction factor (PSRF), effective sample size (ESS), trace plots, and trace rank plots.
+For each set of models, we test possible combinations of variables according to [Data Exploration](#data-exploration) and [Cross Correlation](#cross-correlations). The posterior distributions of the parameters are estimated using Markov chain Monte Carlo (MCMC), and we retain the model with the best predictive performance based on the [Watanabe–Akaike Information Criterion (WAIC)](https://en.wikipedia.org/wiki/Watanabe–Akaike_information_criterion). See file [06_model.R](./code/06_model.R) for further details. In general, the convergence of the MCMC appears healthly based on the [diagnostic details](#mcmc-diagnostics), including potential scale reduction factor (PSRF, or $\hat{R}$), effective sample size (ESS), trace plots, and trace rank plots.
 
 Two general rules are also applied in the modeling. First, we use consecutive lags because the change of predictor variables is more likely to have gradual effects on our outcome variable. Second, to avoid overfitting, we maintain at least ten observations for each predictor included in the models. Since we have about 100 observations in our sample, the numbers of predictors do not exceed 10. The following sections describe details of the best-performing model in each model set. For the choice of priors, please refer to the [Prior Predictive Simulations](#prior-predictive-simulations) section. The posterior distributions of parameters and their 95% intervals can be found in [Posterior Distributions and Coefficient Intervals](#posterior-distributions-and-coefficient-intervals).
 
@@ -202,7 +202,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 
 #### M-110s: Virus
-[R-hat and effective sample size](./tables/coefficients_m110_v10.csv)
+[$\hat{R}$ and effective sample size](./tables/coefficients_m110_v10.csv)
 
 [Trace plot](./figures/trace_plot_m110_v10.pdf)
 
@@ -211,7 +211,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 
 #### M-205s: Virus, DHCQ
-[R-hat and effective sample size](./tables/coefficients_m205_v5dh5.csv)
+[$\hat{R}$ and effective sample size](./tables/coefficients_m205_v5dh5.csv)
 
 [Trace plot](./figures/trace_plot_m205_v5dh5.pdf)
 
@@ -219,7 +219,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 
 
 #### M-303s: Virus, Acetaminophen, DHCQ
-[R-hat and effective sample size](./tables/coefficients_m303_v3a3dh3.csv)
+[$\hat{R}$ and effective sample size](./tables/coefficients_m303_v3a3dh3.csv)
 
 [Trace plot](./figures/trace_plot_m303_v3a3dh3.pdf)
 
