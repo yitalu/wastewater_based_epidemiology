@@ -199,7 +199,7 @@ Distribution of Confirmed Case ([Density Plot](./figures/prior_prediction_case_m
 </br>
 
 ### MCMC Diagnostics
-Several criteria are used to gauge the sampling quality of the MCMC algorithm. Generally, for accurate inference, we look for three qualities of our Markov chain: (1) convergence, (2) stationary, and (3) good mixing. The trace and rank plots ([Vehtari et al 2019](https://doi.org/10.1214/20-BA1221)) below show these features. The R-hats are close to one, and hence confirm the convergence ([Brook and Gelman 2012](https://doi.org/10.1080/10618600.1998.10474787)). The ESSs (the effective MCMC length without autocorrelation), the mean and standard deviation of the posterior distributions for parameters are also provided.
+Several criteria are used to gauge the sampling quality of the MCMC algorithm. Generally, for accurate inference, we look for three qualities of our Markov chain: (1) convergence, (2) stationary, and (3) good mixing. The trace and rank plots ([Vehtari et al 2019](https://doi.org/10.1214/20-BA1221)) below show these features. The R-hats are close to one, and hence confirm the convergence ([Brook and Gelman 2012](https://doi.org/10.1080/10618600.1998.10474787)). The ESSs (the effective MCMC length without autocorrelation) seem reasonable given the non-skewed posterior distributions shown in the [Posterior Distributions and Coefficient Intervals](#posterior-distributions-and-coefficient-intervals) section. The means, standard deviations, and 95% percentile intervals of the posterior distributions for parameters are also provided.
 
 #### M-110s: Virus
 [R-hat and ESS](./tables/coefficients_m110_v10.csv)
